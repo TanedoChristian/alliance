@@ -19,26 +19,23 @@ public class TicketModel {
 	@Column(name="description")
 	String description;
 	
-	@Column(name="category_id")
-	Integer category_id;
+	@Column(name="category")
+	String category;
 	
 	@Column(name="date_issued")
 	String date_issued;
 	
-	@Column(name="user_id")
-	Integer user_id;
+	@Column(name="employee_id")
+	Integer employee_id;
+	
+	@Column(name="attachment")
+	String attachment;
+	
+	@Column(name="assignee_id")
+	Integer assignee_id;
 	
 	
 	
-	
-	
-	public Integer getCategory_id() {
-		return category_id;
-	}
-
-	public void setCategory_id(Integer category_id) {
-		this.category_id = category_id;
-	}
 
 	public String getDate_issued() {
 		return date_issued;
@@ -48,12 +45,12 @@ public class TicketModel {
 		this.date_issued = date_issued;
 	}
 
-	public Integer getUser_id() {
-		return user_id;
+	public Integer getEmployee_id() {
+		return employee_id;
 	}
 
-	public void setUser_id(Integer user_id) {
-		this.user_id = user_id;
+	public void setEmployeeId(Integer employee_id) {
+		this.employee_id = employee_id;
 	}
 
 	public Integer getTicketId() {
@@ -78,6 +75,30 @@ public class TicketModel {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getAttachment() {
+		return attachment;
+	}
+
+	public void setAttachment(String attachment) {
+		this.attachment = attachment;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public Integer getAssignee_id() {
+		return assignee_id;
+	}
+
+	public void setAssignee_id(Integer assignee_id) {
+		this.assignee_id = assignee_id;
 	}
 
 	

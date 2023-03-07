@@ -1,4 +1,4 @@
-package ph.com.alliance.jpa.functions.ticket.dao;
+ package ph.com.alliance.jpa.functions.ticket.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
