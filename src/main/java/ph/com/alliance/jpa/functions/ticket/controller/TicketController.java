@@ -44,7 +44,7 @@ public class TicketController{
 	@PutMapping("/update/{ticketId}")
 	public ApiResult updateTicket(@PathVariable Integer ticketId, TicketModel ticketModel) {
 		ticketservice.updateTicket(ticketId, ticketModel);
-		return ApiResult.CreateSuccess("Success");
+		return ApiResult.CreateSuccess(ticketModel);
 	}
 
 	
