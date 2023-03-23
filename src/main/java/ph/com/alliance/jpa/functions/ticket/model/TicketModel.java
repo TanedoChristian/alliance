@@ -1,8 +1,9 @@
 package ph.com.alliance.jpa.functions.ticket.model;
 
 public class TicketModel {
+	
 	private Integer ticketId;
-	private String status;
+	private Integer status;
 	private String description;
 	private String category;
 	private Integer employee_id;
@@ -40,10 +41,10 @@ public class TicketModel {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 	

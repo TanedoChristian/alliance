@@ -34,22 +34,26 @@ public class EmailServiceImp implements EmailService {
         MailModel mail =  new MailModel();
         ObjectMapper oMapper = new ObjectMapper();
         Map<String, Object> mailMap = oMapper.convertValue(input, Map.class);
+        
         mail.setMailVariables(mailMap);
-        
         mail.setMailFrom(mailFrom);
-        
         mail.setMailSubject("[SampleEmail] Subject");
         
+        
         List<String> mailTo = new ArrayList<String>();
-        mailTo.add("sampleTo@mail.com");
+        
+        
+        
+        mailTo.add(input.getEmail());
         mail.setMailTo(mailTo);
         
-        List<String> mailCC = new ArrayList<String>();
-        mailCC.add("sampleCC@mail.com");
-        mail.setMailCC(mailCC);
         
+        List<String> mailCC = new ArrayList<String>();
+        mailCC.add("tanedochristian1@gmail.com");
+        mail.setMailCC(mailCC);
         mail.setMailTemplate("SampleEmailTemplate");
-
+        
+   
         try {
             rabbitTemplate.convertAndSend(exchange, "spring.rabbit.mail", mail);
         } catch (AmqpException e) {

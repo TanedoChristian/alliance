@@ -14,7 +14,7 @@ public class Ticket {
 	private Integer ticketId;
 
 	@Column(name = "status")
-	private String status;
+	private Integer status;
 
 	@Column(name = "description")
 	private String description;
@@ -42,11 +42,11 @@ public class Ticket {
 		this.ticketId = ticketId;
 	}
 
-	public String getStatus() {
+	public Integer getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(Integer status) {
 		this.status = status;
 	}
 
