@@ -14,6 +14,9 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.stereotype.Service;
 
 import ph.com.alliance.jpa.entity.UserTest;
+import ph.com.alliance.jpa.functions.employee.dao.IEmployeeDao;
+import ph.com.alliance.jpa.functions.employee.model.Employee;
+import ph.com.alliance.jpa.functions.employee.model.EmployeeModel;
 import ph.com.alliance.jpa.functions.usertest.dao.UserTestDao;
 
 import java.util.ArrayList;
@@ -28,10 +31,13 @@ public class LoginService implements ILoginService, UserDetailsService, TokenEnh
     @Autowired
     private UserTestDao userDao;
     
+    @Autowired
+    private IEmployeeDao employeeDao;
+    
     @Override
     public UserDetails loadUserByUsername(String strLoginId) throws UsernameNotFoundException {
 
-        UserTest login = ((List<UserTest>) userDao.findAll()).stream().filter(u -> u.getName().equals(strLoginId)).findFirst().orElse(null);
+        EmployeeModel login = ((List<EmployeeModel>) employeeDao.findAll()).stream().filter(u -> u.getUsername().equals(strLoginId)).findFirst().orElse(null);
         
         if (null != login ) {
             return new User(strLoginId, login.getPassword(), getAuthorities(Arrays.asList("ROLE_ADMIN")));
@@ -42,10 +48,12 @@ public class LoginService implements ILoginService, UserDetailsService, TokenEnh
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         User user = (User) authentication.getPrincipal();
-        
+        EmployeeModel employeeModel = ((List<EmployeeModel>) employeeDao.findAll()).stream().filter(u -> u.getUsername().equals(user.getUsername())).findFirst().orElse(null);
         final Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("username", user.getUsername());
+        additionalInfo.put("employee_id", employeeModel.getEmployee_id());
         additionalInfo.put("authorities", user.getAuthorities());
+        
 
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 

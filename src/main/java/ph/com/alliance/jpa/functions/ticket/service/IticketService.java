@@ -2,6 +2,7 @@ package ph.com.alliance.jpa.functions.ticket.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 
 import javax.mail.search.IntegerComparisonTerm;
 
@@ -16,4 +17,7 @@ public interface IticketService  {
 	void deleteTicket(Integer ticketId);
 	Object findTicket(Integer ticketId);
 	List<Ticket> findbyStatus(String status);
+	List<Map<String, Object>>getAllFromTable();
+	void deleteTickets(List<Integer> tickets);
+
 }

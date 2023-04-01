@@ -1,6 +1,13 @@
 package ph.com.alliance.jpa.functions.ticket.controller;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.io.File;
+import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -13,9 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itextpdf.text.pdf.AcroFields.Item;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+import com.mysql.cj.xdevapi.JsonArray;
 
 import ph.com.alliance.jpa.common.ApiResult;
 import ph.com.alliance.jpa.common.MailModel;
@@ -23,6 +35,7 @@ import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
 import ph.com.alliance.jpa.functions.email.service.EmailService;
 import ph.com.alliance.jpa.functions.ticket.model.Ticket;
 import ph.com.alliance.jpa.functions.ticket.model.TicketModel;
+import ph.com.alliance.jpa.functions.ticket.model.TicketTable;
 import ph.com.alliance.jpa.functions.ticket.service.IticketService;
 
 @RestController
@@ -43,8 +56,24 @@ public class TicketController{
 		return ApiResult.CreateSuccess(ticketservice.getAllTickets());
 	}
 	
-
+	@GetMapping("/gettable")
+	public Object getAllFromTable() {
+		return ApiResult.CreateSuccess(ticketservice.getAllFromTable());
+	}
 	
+
+//	@DeleteMapping("/delete")
+//	public void deleteAll(@RequestBody TicketTable ticketTable)  {
+//		
+//		
+//	}
+	
+	@DeleteMapping("/delete")
+	public void deleteAll(@RequestBody Map<String, Object> ticketTable)  {
+		
+		List<Integer> ticketIds = (List<Integer>) ticketTable.get("ticketId");
+		ticketservice.deleteTickets(ticketIds);
+	}
 	
 	@PostMapping("/create")
 	public ApiResult createTicket(@RequestBody TicketModel ticketmodel) {
@@ -71,6 +100,15 @@ public class TicketController{
 		
 		return ApiResult.CreateSuccess(ticketservice.findTicket(ticketId), "Success");
 	}
+	
+	@PostMapping("file")
+	public Object testFile(@RequestParam("file") MultipartFile file)
+	{
+		
+		return new File("").getAbsoluteFile();
+		 
+	}
+	
 	
 	
 	

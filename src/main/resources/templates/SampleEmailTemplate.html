@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<style>
+.ticket {
+	color: blue;
+}
+</style>
 <body>
     <table>
         <tr>
             <td>
                 <p>Hi <span th:text="${name}"></span>,</p>
-                <p>Test </p>
-                <p>Thanks,</p>
+                <h1>Test </h1>
+                <p class="ticket">Ticket has been updated</p>
                 <p><span th:text="${signature}"></span></p>
             </td>
         </tr>

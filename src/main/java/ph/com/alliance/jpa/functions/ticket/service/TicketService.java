@@ -3,6 +3,7 @@ package ph.com.alliance.jpa.functions.ticket.service;
 import java.beans.Beans;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -52,13 +53,13 @@ public class TicketService implements IticketService {
 			emailService.sendMail(mailModel);
 			
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			e.printStackTrace();
 		}
 	}
@@ -69,16 +70,17 @@ public class TicketService implements IticketService {
 	
 	@Override
 	public void createTicket(TicketModel ticketmodel) {
-		// TODO Auto-generated method stub
+		
 		Ticket ticket = new Ticket();
 		try {
+			ticket.setTicketId(null);
 			BeanUtils.copyProperties(ticket, ticketmodel);
 			ticketDao.saveAndFlush(ticket);
 		} catch (IllegalAccessException e1) {
-			// TODO Auto-generated catch block
+		
 			e1.printStackTrace();
 		} catch (InvocationTargetException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 	
@@ -87,8 +89,13 @@ public class TicketService implements IticketService {
 	@Override
 	public
 	 void deleteTicket(Integer ticketId) {
-		// TODO Auto-generated method stub
 		ticketDao.deleteById(ticketId);
+	}
+	
+	public void deleteTickets(List<Integer> tickets) {
+		for(Integer ticket : tickets) {
+			ticketDao.deleteById(ticket);
+		}
 	}
 	
 
@@ -123,6 +130,14 @@ public class TicketService implements IticketService {
 		
 		
 	}
+
+	@Override
+	public List<Map<String, Object>> getAllFromTable() {
+		// TODO Auto-generated method stub
+		return ticketDao.getAllFromTable();
+	}
+
+	
 
 
 

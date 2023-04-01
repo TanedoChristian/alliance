@@ -1,5 +1,7 @@
 package ph.com.alliance.jpa.functions.ticket.model;
 
+import java.util.List;
+
 public class TicketModel {
 	
 	private Integer ticketId;
@@ -10,6 +12,7 @@ public class TicketModel {
 	private String date_issued;
 	private Integer assignee_id;
 	private String attachment;
+	
 	
 	public String getAttachment() {
 		return attachment;
