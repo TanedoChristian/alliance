@@ -2,17 +2,14 @@ package ph.com.alliance.jpa.functions.employee.model;
 
 
 public class Employee {
-	private Integer employee_id;
+	private Integer employeeId;
 	private String firstname;
 	private String lastname;
 	private String username;
 	private String password;
-	public Integer getEmployee_id() {
-		return employee_id;
-	}
-	public void setEmployee_id(Integer employee_id) {
-		this.employee_id = employee_id;
-	}
+	private String type;
+	
+	
 	public String getFirstname() {
 		return firstname;
 	}
@@ -36,6 +33,18 @@ public class Employee {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 }

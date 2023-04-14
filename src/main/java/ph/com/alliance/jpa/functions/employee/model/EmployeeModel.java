@@ -2,6 +2,8 @@ package ph.com.alliance.jpa.functions.employee.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -11,13 +13,14 @@ public class EmployeeModel {
 
 	
 	@Id
-	@Column(name="employee_id")
-	private Integer employee_id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer employeeId;
 	
 	private String firstname;
 	private String lastname;
 	private String username;
 	private String password;
+	private String type;
 	
 	public String getPassword() {
 		return password;
@@ -43,11 +46,18 @@ public class EmployeeModel {
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
 	}
-	public Integer getEmployee_id() {
-		return employee_id;
+	
+	public String getType() {
+		return type;
 	}
-	public void setEmployee_id(Integer employee_id) {
-		this.employee_id = employee_id;
+	public void setType(String type) {
+		this.type = type;
+	}
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 }

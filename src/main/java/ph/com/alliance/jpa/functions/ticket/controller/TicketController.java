@@ -105,7 +105,7 @@ public class TicketController{
 	public Object testFile(@RequestParam("file") MultipartFile file)
 	{
 		
-		return new File("").getAbsoluteFile();
+		return file;
 		 
 	}
 	
