@@ -16,7 +16,9 @@ public class EmployeeModel {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer employeeId;
 	
+	
 	private String firstname;
+
 	private String lastname;
 	private String username;
 	private String password;

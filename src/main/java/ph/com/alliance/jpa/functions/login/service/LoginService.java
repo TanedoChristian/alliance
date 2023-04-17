@@ -59,6 +59,7 @@ public class LoginService implements ILoginService, UserDetailsService, TokenEnh
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
 
         return accessToken;
+        
     }
 
     private List<GrantedAuthority> getAuthorities(List<String> rolesList) {
