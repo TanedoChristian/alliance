@@ -3,7 +3,7 @@ import React from "react";
 const Header = (props: any) => {
   return (
     <header
-      className={`flex -ml-2  h-[8vh] overflow-hidden top-0 w-full   justify-around fixed bg-gray-700`}
+      className={`flex -ml-2  h-[8vh] overflow-hidden top-0 w-full   justify-around fixed bg-gray-700 `}
       style={{ transition: "background-color 0.5s ease" }}
       id="nav"
     >

@@ -476,56 +476,9 @@ const Dashboard = () => {
         </div>
 
         <div className="flex w-full justify-between h-screen">
-          <SideNav>
-            <ul className="flex flex-col py-20 space-y-1 justify-between h-[90vh] p-4">
-              <div className="flex flex-col gap-5">
-                <li className="w-[100%]">
-                  <a
-                    href="#"
-                    className="relative flex flex-row items-center text-sm focus:outline-none text-red-500  gap-2 rounded-xl font-medium"
-                  >
-                    <span className="material-symbols-outlined">
-                      confirmation_number
-                    </span>
-                    <span className="inline-flex justify-center items-center ml-2">
-                      Dashboard
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/admin/usermanagement"
-                    className="relative flex flex-row items-center text-sm focus:outline-none text-gray-800  gap-2 rounded-xl"
-                  >
-                    <span className="material-symbols-outlined">apps</span>
-                    <span className="inline-flex justify-center items-center ml-2">
-                      User Management
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="relative flex flex-row items-center text-sm focus:outline-none text-gray-800 p-4 rounded-xl"
-                  >
-                    <span className="inline-flex justify-center items-center ml-2">
-                      Role Management
-                    </span>
-                  </a>
-                </li>
-              </div>
-              <li>
-                <a
-                  href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
-                >
-                  <span className="ml-2 text-sm tracking-wide truncate">
-                    Admin Panel
-                  </span>
-                </a>
-              </li>
-            </ul>
-          </SideNav>
+        <SideNav dashboard={true}/>
+            
+    
 
           <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl    ">
             <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
@@ -565,6 +518,7 @@ const Dashboard = () => {
                   <tr
                     className="border border-gray-200  text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
                     key={item.ticketId}
+                   
                   >
                     <td className="p-3 flex justify-center">
                       <input

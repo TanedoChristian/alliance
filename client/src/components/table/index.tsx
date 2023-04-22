@@ -5,11 +5,11 @@ const Table = (props: any) => {
     <table className="items-center  w-full border-collapse table-fixed ">
       <thead
         className="sticky top-0  text-black font-medium shadow-sm w-full tracking-wide "
-        style={{ fontFamily: "Poppins" }}
+        
       >
         <tr>
           {props.headers.map((item: any) => (
-            <th className="px-6   tracking-wide border border-solid  py-3 text-xs  border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+            <th className="px-6 tracking-wide border border-solid  py-3 text-xs  border-l-0 border-r-0 font-semibold text-left">
               {item}
             </th>
           ))}
