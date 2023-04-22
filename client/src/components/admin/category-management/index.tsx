@@ -9,6 +9,14 @@ import Setup from "../../../Setup";
 const CategoryManagement = () => {
     const [showAddModal, setShowAddModal] = useState(false)
     const [showUpdateModal, setShowUpdateModal] = useState(false)
+
+    const [updateData, setUpdateData] = useState({
+        categoryId: '',
+        categoryTitle: '',
+        firstname: '',
+        lastname: ''
+    })
+
     const [employee, setEmployee] = useState([])
 
     const handleCloseAddModal = () => {
@@ -29,6 +37,27 @@ const CategoryManagement = () => {
             setEmployee(data)
         })
     },[])
+
+    const onChangeData = (e: any) => {
+        const { name, value } = e.target
+
+        setUpdateData((prev) => {
+            return (
+                {...prev, [name]: value } 
+            )
+        })
+    }
+
+    const handleUpdateData = () => {
+        axios({
+            method: "put",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+            url: `http://localhost:8080/spring-hibernate-jpa/category/update/${updateData.categoryId}`,
+            data: { updateData },
+        }).then( data => console.log(data))
+    }
 
     return(
         <div className="w-full h-screen overflow-hidden">
@@ -126,7 +155,11 @@ const CategoryManagement = () => {
                                 </td>
                                 <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
                                 <button
-                                    onClick={() => setShowUpdateModal(true)}
+                                    onClick={() => {
+                                        setShowUpdateModal(true)
+                                        setUpdateData(item)
+                                        console.log(item)
+                                    }}
                                 >
                                     <i className="fa-solid fa-pen"></i>
                                 </button>
@@ -196,7 +229,10 @@ const CategoryManagement = () => {
                             <input
                                 type="text"
                                 placeholder="Category"
+                                name="categoryTitle"
                                 className="p-2 bg-gray-200 rounded-md"
+                                defaultValue={updateData.categoryTitle}
+                                onChange={(e) => onChangeData(e)}
                             />
                         </div>
                         <div className="flex gap-2 items-center justify-between">
@@ -204,7 +240,10 @@ const CategoryManagement = () => {
                             <input
                                 type="text"
                                 placeholder="First Name"
+                                name="firstname"
                                 className="p-2 bg-gray-200 rounded-md"
+                                defaultValue={updateData.firstname}
+                                onChange={(e) => onChangeData(e)}
                             />
                         </div>
                         <div className="flex gap-2 items-center justify-between">
@@ -212,7 +251,10 @@ const CategoryManagement = () => {
                             <input
                                 type="text"
                                 placeholder="Last Name"
+                                name="lastname"
                                 className="p-2 bg-gray-200 rounded-md"
+                                defaultValue={updateData.lastname}
+                                onChange={(e) => onChangeData(e)}
                             />
                         </div>
                     </div>
@@ -221,6 +263,7 @@ const CategoryManagement = () => {
                 <div className="flex gap-2 justify-center">
                     <button
                         className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+                        onClick={handleUpdateData}
                     >
                         Update
                     </button>
