@@ -9,6 +9,7 @@ import Setup from "../../../Setup";
 const CategoryManagement = () => {
     const [showAddModal, setShowAddModal] = useState(false)
     const [showUpdateModal, setShowUpdateModal] = useState(false)
+    const [success, setSuccess] = useState(false)
 
     const [updateData, setUpdateData] = useState({
         categoryId: '',
@@ -36,27 +37,31 @@ const CategoryManagement = () => {
             console.log(data)
             setEmployee(data)
         })
-    },[])
+    },[success])
 
     const onChangeData = (e: any) => {
         const { name, value } = e.target
 
         setUpdateData((prev) => {
-            return (
-                {...prev, [name]: value } 
-            )
+            return {...prev, [name]: value } 
         })
     }
 
     const handleUpdateData = () => {
+        console.log(updateData)
         axios({
             method: "put",
             headers: {
               Authorization: `Bearer ${localStorage.getItem("access_token")}`,
             },
             url: `http://localhost:8080/spring-hibernate-jpa/category/update/${updateData.categoryId}`,
-            data: { updateData },
-        }).then( data => console.log(data))
+            data: updateData ,
+        }).then((data) => {
+            console.log(data)
+            setSuccess(!success)
+            setShowUpdateModal(false)
+        })
+
     }
 
     return(

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ph.com.alliance.jpa.common.ApiResult;
 import ph.com.alliance.jpa.functions.category.model.CategoryModel;
 import ph.com.alliance.jpa.functions.category.service.ICategoryService;
 
@@ -32,8 +33,10 @@ public class CategoryController {
 	}
 	
 	@PutMapping("/update/{id}")
-	public void update(@PathVariable Integer id, @RequestBody CategoryModel category) {
+	public ApiResult update(@PathVariable Integer id, @RequestBody CategoryModel category) {
 		categoryService.updateCategory(id, category);
+		return ApiResult.CreateSuccess(category);
+
 		
 	}
 	
