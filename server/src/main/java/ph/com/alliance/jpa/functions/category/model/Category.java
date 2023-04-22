@@ -1,6 +1,7 @@
 package ph.com.alliance.jpa.functions.category.model;
 
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class Category {
 	private Integer categoryId;
 	private String firstname;
 	private String lastname;
+	@Column(name="category_title")
 	private String categoryTitle;
 	
 	

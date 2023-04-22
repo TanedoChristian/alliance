@@ -38,6 +38,7 @@ const UserManagement = () => {
         height="h-[70%]"
         width="w-[50%]"
         title="Add Employee"
+        
       >
         <div className="w-full bg-white flex p-10 justify-center">
           <div className="w-[50%] flex flex-col  gap-3 ">
