@@ -9,37 +9,49 @@ const SideNav = (props: any) => {
                 <li className="w-[100%]">
                   <a
                     href="/dashboard"
-                    className={`relative flex flex-row items-center ${props.dashboard ? "text-red-500" : ""}  text-sm focus:outline-none text-gray-700  gap-2 rounded-xl font-medium`}
+                    className={` flex  items-center ${props.dashboard ? "text-red-500" : ""}  text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
                   >
-                    <span className="material-symbols-outlined">
+                    <span className="material-symbols-outlined w-[2rem]">
                       confirmation_number
                     </span>
-                    <span className="inline-flex justify-center items-center ml-2">
-                      Dashboard
-                    </span>
+                    Dashboard
+                     
+                    
                   </a>
                 </li>
                 <li>
                   <a
                     href="/admin/usermanagement"
-                    className={`relative flex flex-row items-center ${props.user ? "text-red-500" : ""}  text-sm focus:outline-none text-gray-700  gap-2 rounded-xl font-medium`}
+                    className={`relative flex flex-row items-center ${props.user ? "text-red-500" : ""}  text-sm focus:outline-none text-gray-700 text-[0.8rem]  gap-3 rounded-xl font-medium`}
                   >
-                    <i className="fa-solid fa-user text-lg"></i>
+                    <i className="fa-solid fa-user w-[2rem] text-lg"></i>
                   
-                    <span className="inline-flex justify-center items-center ml-2">
+                   
                       Users Management
+                   
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="/admin/categorymanagement"
+                    className={`relative flex flex-row items-center ${props.category ? "text-red-500" : ""} focus:outline-none text-gray-700 gap-2 text-[0.8rem]  justify-between rounded-xl font-medium`}
+                  >
+                    <i className="fa-solid fa-user text-lg "></i>
+                  
+                    <span className="">
+                      Category Management
                     </span>
                   </a>
                 </li>
                 <li>
                   <a
                     href="#"
-                    className={`relative flex flex-row items-center ${props.roles ? "text-red-500" : ""}  text-sm focus:outline-none text-gray-700  gap-2 rounded-xl font-medium`}
+                    className={`relative flex flex-row items-center ${props.category ? "text-red-500" : ""} focus:outline-none text-gray-700 gap-2 text-[0.8rem]   rounded-xl font-medium`}
                   >
-                      <span className="material-symbols-outlined">apps</span>
-                    <span className="inline-flex justify-center items-center ml-2">
+                      <span className="material-symbols-outlined w-[2rem]">apps</span>
+                   
                       Roles Management
-                    </span>
+                   
                   </a>
                 </li>
               </div>
