@@ -40,94 +40,7 @@ const Dashboard = () => {
   };
 
   return (
-    // <div className="flex flex-col w-full h-screen">
-    //   <div className=" w-full   h-screen  ">
-    //     <div className="h-[8vh] w-full  flex relative bg-gray-800 ">
-    //       <div className="absolute flex w-full  h-full ">
-    //         <div className="flex p-5 px-7 justify-between items-center w-full ">
-    //           <img
-    //             src="https://www.alliance.com.ph/images/asi-logo.svg"
-    //             className="w-[10%]"
-    //           />
-    //           <div className="flex gap-2">
-    //             <img
-    //               className="w-9 h-9 rounded-full "
-    //               src="https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600"
-    //             />
-    //             <span className="inline-flex justify-center items-center ml-4">
-    //               <svg
-    //                 className="w-6 h-6 text-white"
-    //                 fill="none"
-    //                 stroke="currentColor"
-    //                 viewBox="0 0 24 24"
-    //                 xmlns="http://www.w3.org/2000/svg"
-    //               >
-    //                 <path
-    //                   stroke-linecap="round"
-    //                   stroke-linejoin="round"
-    //                   stroke-width="2"
-    //                   d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-    //                 ></path>
-    //                 <path
-    //                   stroke-linecap="round"
-    //                   stroke-linejoin="round"
-    //                   stroke-width="2"
-    //                   d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-    //                 ></path>
-    //               </svg>
-    //             </span>
-    //             <div
-    //               className="inline-flex justify-center items-center ml-4 cursor-pointer"
-    //               onClick={() => {
-    //                 window.location.href = "/";
-    //               }}
-    //             >
-    //               <svg
-    //                 className="w-6 h-6 text-white"
-    //                 fill="none"
-    //                 stroke="currentColor"
-    //                 viewBox="0 0 24 24"
-    //                 xmlns="http://www.w3.org/2000/svg"
-    //               >
-    //                 <path
-    //                   stroke-linecap="round"
-    //                   stroke-linejoin="round"
-    //                   stroke-width="2"
-    //                   d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-    //                 ></path>
-    //               </svg>
-    //             </div>
-    //           </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //     <div className=" w-full  h-[92vh] flex">
-    //       <div className="w-[20%]  flex justify-center">
-    //         <ul className="w-[90%] flex flex-col gap-20 text-2xl font-bold text-gray-700 items-center p-10">
-    //           <li>
-    //             <a>Dashboard</a>
-    //           </li>
-    //           <li>
-    //             <a>Dashboard</a>
-    //           </li>
-    //           <li>
-    //             <a>Dashboard</a>
-    //           </li>
-    //         </ul>
-    //       </div>
-    //       <div className="w-[80%] ">
-    //         <div className=" flex flex-col  bg-white w-full  rounded h-screen   overflow-y-auto ">
-    //           <TicketTable
-    //             ticket={context.ticket}
-    //             handleChange={handleChange}
-    //             openModal={setUpdateModalOpen}
-    //             send={send}
-    //           />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
+    
 
     <div className="flex  h-screen w-full overflow-hidden ">
       <Modal
@@ -564,12 +477,12 @@ const Dashboard = () => {
 
         <div className="flex w-full justify-between h-screen">
           <SideNav>
-            <ul className="flex flex-col py-4 space-y-1 justify-around h-screen p-4">
+            <ul className="flex flex-col py-20 space-y-1 justify-between h-[90vh] p-4">
               <div className="flex flex-col gap-5">
-                <li>
+                <li className="w-[100%]">
                   <a
                     href="#"
-                    className="relative flex flex-row items-center text-sm focus:outline-none text-red-500  p-4 rounded-xl font-medium"
+                    className="relative flex flex-row items-center text-sm focus:outline-none text-red-500  gap-2 rounded-xl font-medium"
                   >
                     <span className="material-symbols-outlined">
                       confirmation_number
@@ -582,7 +495,7 @@ const Dashboard = () => {
                 <li>
                   <a
                     href="/admin/usermanagement"
-                    className="relative flex flex-row items-center text-sm focus:outline-none text-gray-800   rounded-xl"
+                    className="relative flex flex-row items-center text-sm focus:outline-none text-gray-800  gap-2 rounded-xl"
                   >
                     <span className="material-symbols-outlined">apps</span>
                     <span className="inline-flex justify-center items-center ml-2">
