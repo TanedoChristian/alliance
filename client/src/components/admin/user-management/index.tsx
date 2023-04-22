@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../header";
 import SideNav from "../../sidenav";
 import Table from "../../table";
@@ -11,6 +11,19 @@ import Setup from "../../../Setup";
 
 const UserManagement = () => {
   const [current, send] = useMachine(UserManagementMachine);
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:8080/spring-hibernate-jpa/ticket/gettable", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+    }).then((data) => {
+      console.log(data)
+    }).catch((data) => {
+      console.log(data)
+    })
+  },[])
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
