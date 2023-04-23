@@ -57,8 +57,8 @@ const SideNav = (props: any) => {
               </div>
               <li>
                 <a
-                  href="#"
-                  className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6"
+                  href="/admin/adminpanel"
+                  className={`relative flex flex-row items-center ${props.admin ? "text-red-500" : ""} focus:outline-none text-gray-700 gap-2 text-[0.8rem]   rounded-xl font-medium`}
                 >
                   <span className="ml-2 text-sm tracking-wide truncate">
                     Admin Panel
