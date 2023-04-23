@@ -45,7 +45,7 @@ const SideNav = (props: any) => {
                 </li>
                 <li>
                   <a
-                    href="#"
+                    href="/admin/rolemanagement"
                     className={`relative flex flex-row items-center ${props.roles ? "text-red-500" : ""} focus:outline-none text-gray-700 gap-2 text-[0.8rem]   rounded-xl font-medium`}
                   >
                       <span className="material-symbols-outlined w-[2rem]">apps</span>
