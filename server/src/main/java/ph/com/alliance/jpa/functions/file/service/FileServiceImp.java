@@ -1,9 +1,13 @@
 package ph.com.alliance.jpa.functions.file.service;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +16,10 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -25,6 +32,9 @@ import com.opencsv.CSVWriter;
 public class FileServiceImp implements FileService {
 
     String basePath = System.getProperty("user.dir") + "\\";
+    
+    @Autowired
+	private Environment env;
     
     @Override
     public String downloadCsv(List<List<String>> items) throws IOException {        
@@ -106,5 +116,23 @@ public class FileServiceImp implements FileService {
         document.close();
         return strFilePath;
     }
+
+	@Override
+	public Object uploadFile(MultipartFile file) {
+		
+		String basePath = env.getProperty("files.path") + "/sampleuploads";
+		File directory = new File(basePath);
+		if(!directory.exists()) {
+			directory.mkdir();
+		}
+	    Path filePath = Paths.get(basePath, file.getOriginalFilename());
+		try {
+			Files.write(filePath, file.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return file;
+	}
 
 }

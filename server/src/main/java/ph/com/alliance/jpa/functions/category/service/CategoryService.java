@@ -37,8 +37,6 @@ public class CategoryService implements ICategoryService {
 			BeanUtils.copyProperties(category, categoryModel);
 			category.setCategoryId(id);
 			categoryDao.saveAndFlush(category);
-			
-			
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
