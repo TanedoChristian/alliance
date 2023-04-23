@@ -114,12 +114,11 @@ const Dashboard = () => {
                           className="hidden"
                           onChange={(e: any) => {
                             setShowFile(true);
+
+                      
                             send({
-                              type: "ON_CHANGE_TICKET",
-                              data: {
-                                ...context.updateTicket,
-                                attachment: e.target.files[0].name,
-                              },
+                              type: "ON_CHANGE_FILE",
+                              data: e.target.files[0]
                             });
                           }}
                         />

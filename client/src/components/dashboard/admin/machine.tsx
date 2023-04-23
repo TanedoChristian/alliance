@@ -7,6 +7,7 @@ interface Context {
   updateTicket: any;
   description: string;
   category: string;
+  file: File[]
   tableHeaders: any[];
 }
 
@@ -15,6 +16,7 @@ const DashboardMachine = createMachine<Context>(
     id: "dashboard",
     initial: "idle",
     context: {
+      file: [],
       tableHeaders: [
         "",
         "Description",
@@ -32,7 +34,7 @@ const DashboardMachine = createMachine<Context>(
         status: "",
         category: "",
         date_issued: "",
-        attachment: "",
+        attachment: [],
       },
       description: "",
       category: "",
@@ -58,6 +60,13 @@ const DashboardMachine = createMachine<Context>(
             target: "idle",
           },
 
+          ON_CHANGE_FILE: {
+            actions: assign({
+              file: (context,event) => event.data
+            })
+          },
+
+
           ON_UPDATE_TICKETS: {
             target: "updateTicket",
           },
@@ -77,21 +86,14 @@ const DashboardMachine = createMachine<Context>(
             target: "waiting",
           },
           ON_SUBMIT: {
-            target: "submitTicket",
+            actions: "createTicket",
+            target: "idle",
           },
         },
       },
       updateTicket: {
         invoke: {
           src: "updateTicket",
-          onDone: {
-            target: "idle",
-          },
-        },
-      },
-      submitTicket: {
-        invoke: {
-          src: "createTicket",
           onDone: {
             target: "idle",
           },
@@ -105,6 +107,26 @@ const DashboardMachine = createMachine<Context>(
       handleChangeDescription: assign({
         description: (context, event) => event.data,
       }),
+
+      createTicket: (context,event) => {
+        axios({
+          method: "post",
+          url: "http://localhost:8080/spring-hibernate-jpa/ticket/create",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            "Content-Type": "multipart/form-data"
+          },
+          data: {
+            assignee_id: 1,
+            file: context.file,
+            category: context.category,
+            date_issued: "2023-03-05",
+            description: context.description,
+            employee_id: localStorage.getItem("employee_id"),
+            status: 2,
+          },
+        }).then((data) => data);
+      }, 
 
       handleChangeCategory: assign({
         category: (context, event) => event.data,
@@ -137,25 +159,6 @@ const DashboardMachine = createMachine<Context>(
     },
 
     services: {
-      createTicket: (context, event) => {
-        return axios({
-          method: "post",
-          url: "http://localhost:8080/spring-hibernate-jpa/ticket/create",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-          },
-          data: {
-            assignee_id: 1,
-            attachment: context.updateTicket.attachment,
-            category: context.category,
-            date_issued: "2023-03-05",
-            description: context.description,
-            employee_id: localStorage.getItem("employee_id"),
-            status: 2,
-          },
-        }).then((data) => data);
-      },
-
       updateTicket: (context, event) => {
         return axios({
           method: "put",

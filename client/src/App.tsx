@@ -7,6 +7,7 @@ import Dashboard from "./components/dashboard/admin";
 import DashboardContainer from "./components/dashboard";
 import UserManagement from "./components/admin/user-management";
 import CategoryManagement from "./components/admin/category-management";
+import AdminPanel from "./components/admin/admin-panel";
 
 const App = () => {
   return (
@@ -18,6 +19,10 @@ const App = () => {
           <Route
             path="/admin/usermanagement"
             element={<UserManagement />}
+          ></Route>
+          <Route
+            path="/admin/panel"
+            element={<AdminPanel />}
           ></Route>
           <Route
             path="/admin/categorymanagement"
