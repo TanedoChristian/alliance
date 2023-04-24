@@ -7,7 +7,7 @@ interface Context {
   updateTicket: any;
   description: string;
   category: string;
-  file: File[]
+  file: any
   tableHeaders: any[];
 }
 
@@ -17,6 +17,7 @@ const DashboardMachine = createMachine<Context>(
     initial: "idle",
     context: {
       file: [],
+      
       tableHeaders: [
         "",
         "Description",

@@ -6,11 +6,9 @@ import HomePage from "./components";
 import DashboardContainer from "./components/dashboard";
 import UserManagement from "./components/admin/user-management";
 import CategoryManagement from "./components/admin/category-management";
-<<<<<<< HEAD
 import AdminPanel from "./components/admin/admin-panel";
-=======
 import RoleManagement from "./components/admin/role-management";
->>>>>>> 4d1f3a1454b9bfa1fc3a4d92806bb3f3f66d15de
+
 
 const App = () => {
   return (

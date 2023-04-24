@@ -114,8 +114,7 @@ const Dashboard = () => {
                           className="hidden"
                           onChange={(e: any) => {
                             setShowFile(true);
-
-                      
+                           
                             send({
                               type: "ON_CHANGE_FILE",
                               data: e.target.files[0]
@@ -179,7 +178,7 @@ const Dashboard = () => {
                 style={{ display: showFile ? "block" : "none" }}
               >
                 <p className="text-ellipsis">
-                  {context.updateTicket.attachment}
+                  {context.file.name ?? ""} 
                 </p>
                 <button
                   className="absolute top-[-5px] right-0  rounded-full "
