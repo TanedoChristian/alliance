@@ -6,4 +6,6 @@ public interface IRoleService {
 	
 	Object get();
 	void insert(Role role);
+	void delete(Integer roleId, Role role);
+	void updateRole(Integer roleId, Role role);
 }

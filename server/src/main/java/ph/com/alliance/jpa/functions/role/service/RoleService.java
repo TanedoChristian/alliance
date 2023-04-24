@@ -33,10 +33,33 @@ public class RoleService implements IRoleService {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
-		
-		
-		
+	}
+	
+	@Override
+	public void delete(Integer roleId, Role role) {
+		// TODO Auto-generated method stub
+		RoleModel roleModel = new RoleModel();
+		  try {
+	            BeanUtils.copyProperties(role, roleModel);
+	            iRoleDao.deleteById(roleId);
+	        }catch(IllegalAccessException e) {
+	            e.getStackTrace();
+	        }catch(Exception e) {
+	            e.getStackTrace();
+	        }
+	}
+
+	@Override
+	public void updateRole(Integer roleId, Role role) {
+		try {
+			RoleModel roleModel = new RoleModel();
+			BeanUtils.copyProperties(roleModel, role);
+			iRoleDao.saveAndFlush(roleModel);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 
 	
