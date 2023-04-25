@@ -148,6 +148,13 @@ public class EmployeeService implements IEmployeeService{
 		
 	}
 
+
+
+	@Override
+	public Object getAllAdmin() {
+		return employeeDao.getAllAdmin();
+	}
+
 	
 
 

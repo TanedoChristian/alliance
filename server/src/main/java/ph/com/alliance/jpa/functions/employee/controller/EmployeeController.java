@@ -48,9 +48,14 @@ public class EmployeeController{
 	
 	@DeleteMapping("/delete/{id}")
 	public ApiResult deleteEmployee(@PathVariable Integer id) {
-	
 		service.deleteEmployee(id);
 		return ApiResult.CreateSuccess("Successfully Deleted!");
+	}
+	
+	@GetMapping("/admin")
+	public ApiResult getAllAdmin() {
+		service.getAllAdmin();
+		return ApiResult.CreateSuccess(service.getAllAdmin());
 	}
 	
 	
