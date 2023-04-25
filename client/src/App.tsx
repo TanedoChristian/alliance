@@ -8,6 +8,7 @@ import UserManagement from "./components/admin/user-management";
 import CategoryManagement from "./components/admin/category-management";
 import AdminPanel from "./components/admin/admin-panel";
 import RoleManagement from "./components/admin/role-management";
+import AccountSettings from "./components/account-settings";
 
 
 const App = () => {
@@ -16,6 +17,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/account/settings" element={<AccountSettings />}></Route>
           <Route path="/dashboard" element={<DashboardContainer />}></Route>
           <Route
             path="/admin/usermanagement"

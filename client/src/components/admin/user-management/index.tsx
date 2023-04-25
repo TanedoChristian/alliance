@@ -12,8 +12,6 @@ import Setup from "../../../Setup";
 const UserManagement = () => {
   const [current, send] = useMachine(UserManagementMachine);
 
-  
-
   const [showAddModal, setShowAddModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
 
@@ -33,12 +31,11 @@ const UserManagement = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden">
-       <Modal
+      <Modal
         isOpen={showAddModal}
         height="h-[70%]"
         width="w-[50%]"
         title="Add Employee"
-        
       >
         <div className="w-full bg-white flex p-10 justify-center">
           <div className="w-[50%] flex flex-col  gap-3 ">
@@ -104,7 +101,7 @@ const UserManagement = () => {
                     type: "ON_CHANGE",
                     data: {
                       ...current.context.user,
-                      username: e.target.value,
+                      email: e.target.value,
                     },
                   });
                 }}
@@ -154,7 +151,7 @@ const UserManagement = () => {
         isOpen={showUpdateModal}
         height="h-[70%]"
         width="w-[60%]"
-        title="Add Employee"
+        title="Update Employee"
       >
         <form>
           <div className="w-full bg-white flex p-10 justify-center">
@@ -219,13 +216,13 @@ const UserManagement = () => {
                   type="text"
                   placeholder="Email Address"
                   className="p-2 bg-gray-200 rounded-md"
-                  defaultValue={current.context.user.username}
+                  defaultValue={current.context.user.email}
                   onChange={(e) => {
                     send({
                       type: "ON_CHANGE",
                       data: {
                         ...current.context.user,
-                        username: e.target.value,
+                        email: e.target.value,
                       },
                     });
                   }}
@@ -330,66 +327,64 @@ const UserManagement = () => {
         </div>
       </div>
       <div className="flex w-full justify-between h-screen">
-      <SideNav user={true}/>
-            
-    
-      <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl">
-      <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
-          <div className="w-full flex justify-between px-10 items-center p-2">
-            <h1 className="font-bold text-xl">Users</h1>
-            <button
-              className="p-2.5 text-white bg-red-500 rounded-xl shadow-md text-sm"
-              onClick={() => {
-                setShowAddModal(true);
-              }}
-            >
-              Add Employee
-            </button>
-          </div>
-          <Table headers={current.context.headers}>
-            {current.context.users.map((item: any) => (
-              <tr
-                className="border border-gray-200 text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
-                key={item.employeeId}
+        <SideNav user={true} />
+
+        <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl">
+          <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
+            <div className="w-full flex justify-between px-10 items-center p-2">
+              <h1 className="font-bold text-xl">Users</h1>
+              <button
+                className="p-2.5 text-white bg-red-500 rounded-xl shadow-md text-sm"
+                onClick={() => {
+                  setShowAddModal(true);
+                }}
               >
-                <td className="border-t-0 px-6 align-middle  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
-                  {item.employeeId}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
-                  {item.firstname}
-                </td>
+                Add Employee
+              </button>
+            </div>
+            <Table headers={current.context.headers}>
+              {current.context.users.map((item: any) => (
+                <tr
+                  className="border border-gray-200 text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
+                  key={item.employeeId}
+                >
+                  <td className="border-t-0 px-6 align-middle  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
+                    {item.employeeId}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
+                    {item.firstname}
+                  </td>
 
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
-                  {item.lastname}
-                </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
+                    {item.lastname}
+                  </td>
 
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
-                  {item.username}
-                </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
+                    {item.username}
+                  </td>
 
-                <td className="border-t-0 px-6 align-middle border-l-0 uppercase border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
-                  {item.type}
-                </td>
-                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
-                  <button
-                    onClick={() => {
-                      setShowUpdateModal(true);
-                      send({ type: "ON_CHANGE", data: item });
-                    }}
-                  >
-                    <i className="fa-solid fa-pen"></i>
-                  </button>
-                  <button onClick={() => handleDelete(item.employeeId)}>
-                    <i className="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </Table>
-        </div>
+                  <td className="border-t-0 px-6 align-middle border-l-0 uppercase border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
+                    {item.type}
+                  </td>
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
+                    <button
+                      onClick={() => {
+                        setShowUpdateModal(true);
+                        send({ type: "ON_CHANGE", data: item });
+                      }}
+                    >
+                      <i className="fa-solid fa-pen"></i>
+                    </button>
+                    <button onClick={() => handleDelete(item.employeeId)}>
+                      <i className="fa-solid fa-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </Table>
+          </div>
         </div>
       </div>
-     
     </div>
   );
 };

@@ -18,6 +18,7 @@ const UserManagementMachine = createMachine(
         "Actions",
       ],
       user: {
+        email: "",
         employeeId: "",
         firstname: "",
         lastname: "",

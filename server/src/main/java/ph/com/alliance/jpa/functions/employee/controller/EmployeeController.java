@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
@@ -31,16 +32,18 @@ public class EmployeeController{
 
 	@GetMapping("/getall")
 	public Object getAllEmployee() {
-		// TODO Auto-generated method stub
 		return service.getAllEmployee();
-		
 	}
 	
 	@PostMapping("/insert")
 	public Object insertEmployee(@RequestBody Employee employee) {
 		service.insertEmployee(employee);
 		return employee;
-		
+	}
+	
+	@GetMapping("/get/{id}")
+	public ApiResult getEmployeeById(@PathVariable Integer id) {
+		return ApiResult.CreateSuccess(service.getById(id));
 	}
 	
 	@DeleteMapping("/delete/{id}")
@@ -52,15 +55,14 @@ public class EmployeeController{
 	
 	
 	@PutMapping("/update/{id}")
-	public ApiResult updateEmployee(@PathVariable Integer id, @RequestBody Employee employee) {
-		service.updateEmployee(id, employee);
+	public ApiResult updateEmployee(@PathVariable Integer id, Employee employee, MultipartFile file) {
+		service.updateEmployee(id, employee, file);
 		return ApiResult.CreateSuccess("Successfully Updated");
 	}
 	
 	
 	@PostMapping("/employee-login")
 	public ApiResult findUsername(@RequestBody Employee employee) {
-		// TODO Auto-generated method stub
 		service.findEmployee(employee.getUsername(), employee.getPassword());
 		return ApiResult.CreateSuccess(service.findEmployee(employee.getUsername(), employee.getPassword()));
 	}
