@@ -60,6 +60,14 @@ public class EmployeeController{
 		return ApiResult.CreateSuccess("Successfully Updated");
 	}
 	
+	@PutMapping("/change-password/{id}")
+	public ApiResult changePassword(@PathVariable Integer id, String oldPassword, String newPassword) {
+		
+		service.updatePassword(id, oldPassword, newPassword);
+		return ApiResult.CreateSuccess("Successfully Updated!");
+		
+	}
+	
 	
 	@PostMapping("/employee-login")
 	public ApiResult findUsername(@RequestBody Employee employee) {

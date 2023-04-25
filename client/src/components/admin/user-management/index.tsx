@@ -306,6 +306,10 @@ const UserManagement = () => {
                     {item.username}
                   </td>
 
+                  <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left ">
+                    {item.email}
+                  </td>
+
                   <td className="border-t-0 px-6 align-middle border-l-0 uppercase border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
                     {item.type}
                   </td>

@@ -9,6 +9,7 @@ const AccountSettings = () => {
   const [isOpenUpdate, setModalUpdate] = useState(false);
   const [file, setFile]: any = useState([]);
   const [success, setSuccess]: any = useState();
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     axios
@@ -60,6 +61,30 @@ const AccountSettings = () => {
     setFile(e.target.files[0]);
   };
 
+  const handleChangePassword = () => {
+    if (user.confirmpassword == user.newpassword) {
+      axios({
+        method: "PUT",
+        url: `${Setup.SERVER_URL()}/employee/change-password/${localStorage.getItem(
+          "employee_id"
+        )}`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+        data: {
+          oldPassword: user.password,
+          newPassword: user.newpassword,
+        },
+      }).then((data) => {
+        console.log(data);
+        setModalUpdate(false);
+      });
+    } else {
+      setError(true);
+    }
+  };
+
   return (
     <div className="flex w-full h-screen flex-col overflow-hidden">
       <Modal
@@ -72,12 +97,15 @@ const AccountSettings = () => {
         <div className="w-full bg-white flex p-10 justify-center">
           <div className="flex flex-col  gap-5 ">
             <div className="flex flex-col gap-1  justify-between">
+              <h1 className="text-red-500">
+                {error ? "Password does not match" : ""}
+              </h1>
               <label className="font-bold text-slate-700">Old Password</label>
               <input
-                type="text"
+                type="password"
                 placeholder="Old Password"
                 className="p-2 bg-gray-100 rounded-md"
-                name="username"
+                name="password"
                 onChange={onChange}
               />
             </div>
@@ -85,22 +113,22 @@ const AccountSettings = () => {
               <div className="flex flex-col gap-1  justify-between">
                 <label className="font-bold text-slate-700">New Password</label>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="First Name"
                   className="p-2 bg-gray-100 rounded-md"
-                  name="firstname"
+                  name="newpassword"
                   onChange={onChange}
                 />
               </div>
-              <div className="flex flex-col gap-1  justify-between">
+              <div className="flex flex-col gap-1  justify-between ">
                 <label className="font-bold text-slate-700">
                   Confirm Password
                 </label>
                 <input
-                  type="text"
+                  type="password"
                   placeholder="Old Password"
                   className="p-2 bg-gray-100 rounded-md"
-                  name="firstname"
+                  name="confirmpassword"
                   onChange={onChange}
                 />
               </div>
@@ -110,9 +138,9 @@ const AccountSettings = () => {
         <div className="flex w-full justify-center">
           <button
             className="bg-red-600 text-white font-bold  rounded-md shadow-xl p-3 w-[40%] font-sans"
-            onClick={handleUpdate}
+            onClick={handleChangePassword}
           >
-            Update
+            Confirm
           </button>
         </div>
       </Modal>

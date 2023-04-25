@@ -111,10 +111,7 @@ public class EmployeeService implements IEmployeeService{
 			
 			
 			employeeDao.saveAndFlush(employeeModel);
-			BeanUtils.copyProperties(employeeModel, employee);
-			
-			
-			
+			BeanUtils.copyProperties(employeeModel, employee);		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -125,6 +122,30 @@ public class EmployeeService implements IEmployeeService{
 	@Override
 	public Object getById(Integer id) {
 		return employeeDao.findById(id).orElse(null);
+	}
+
+
+
+	@Override
+	public void updatePassword(Integer id, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		
+		try {
+			EmployeeModel employeeModel = employeeDao.findById(id).orElse(null);
+			
+			if(employeeModel.getPassword().equals(oldPassword)) {
+				employeeModel.setPassword(newPassword);
+				employeeDao.saveAndFlush(employeeModel);
+			}
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	

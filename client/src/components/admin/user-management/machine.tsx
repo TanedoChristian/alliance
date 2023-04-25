@@ -14,6 +14,7 @@ const UserManagementMachine = createMachine(
         "Firstname",
         "Lastname",
         "Username",
+        "Email",
         "Role",
         "Actions",
       ],

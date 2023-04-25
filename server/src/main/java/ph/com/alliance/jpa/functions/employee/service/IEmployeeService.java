@@ -14,6 +14,7 @@ public interface IEmployeeService {
 	 void insertEmployee(Employee employee);
 	 void deleteEmployee(Integer id);
 	 void updateEmployee(Integer id, Employee employee, MultipartFile file);
+	 void updatePassword(Integer id, String oldPassword, String newPassword);
 	 Object getById(Integer id);
 
 }
