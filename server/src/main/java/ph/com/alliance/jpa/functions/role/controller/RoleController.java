@@ -33,14 +33,14 @@ public class RoleController {
 		return ApiResult.CreateSuccess(role);
 	}
 	
-	@DeleteMapping("/delete{roleId}")
+	@DeleteMapping("/delete/{roleId}")
 	public ApiResult delete(@PathVariable Integer roleId, Role role)
 	{
 		iRoleService.delete(roleId, role);
 		return ApiResult.CreateSuccess("Deleted Successfully!");
 	}
 	
-	@PutMapping("/update{roleId}")
+	@PutMapping("/update/{roleId}")
 	public ApiResult updateRole(@PathVariable Integer roleId, @RequestBody Role role) {
 		iRoleService.updateRole(roleId, role);
 		return ApiResult.CreateSuccess("Updated Successfully!");
