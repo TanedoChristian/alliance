@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../modal";
 import SideNav from "../../sidenav";
 import Table from "../../table";
+import axios from "axios";
+import Setup from "../../../Setup";
 
 
 const RoleManagement = () => {
     const [showAddModal, setShowAddModal] = useState(false)
     const [showUpdateModal, setShowUpdateModal] = useState(false)
+    const [success, setSuccess] = useState(false)
+    const [role, setRole] = useState([])
+
 
     const [updateData, setUpdateData] = useState({
         roleId: '',
-        roleTitle: '',
+        role: '',
         description: '',
     })
 
@@ -21,13 +26,42 @@ const RoleManagement = () => {
         setShowUpdateModal(false)
     }
 
+    useEffect(() => {
+        axios.get(`${Setup.SERVER_URL()}/role/get`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+        }).then(({ data }) => {
+            console.log(data)
+            setRole(data.data)
+        })
+    },[success])
+
     const onChangeData = (e: any) => {
-        const [name, value] = e.target
-        
+        const { name, value } = e.target
+
         setUpdateData((prev) => {
             return {...prev, [name]: value } 
         })
     }
+
+    const handleUpdateData = () => {
+        console.log(updateData)
+        axios({
+            method: "put",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            },
+            url: `http://localhost:8080/spring-hibernate-jpa/role/update/${updateData.roleId}`,
+            data: updateData,
+        }).then((data) => {
+            console.log(data)
+            setSuccess(!success)
+            setShowUpdateModal(false)
+        })
+
+    }
+
 
     return(
         <div className="w-full h-screen overflow-hidden">
@@ -106,33 +140,36 @@ const RoleManagement = () => {
                             </button>
                         </div>
                         <Table headers={['Role ID', 'Role', 'Description', 'Action']}>
-                            <tr
-                                className="border border-gray-200 text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
-                            >
-                                <td className="border-t-0 px-6 align-middle  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
-                                    Sample
-                                </td>
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
-                                    Sample
-                                </td>
-
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
-                                    Sample
-                                </td>
-
-                                <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
-                                <button
-                                    onClick={() => {
-                                    setShowUpdateModal(true);
-                                    }}
+                            {role?.map((item: any) => (
+                                <tr
+                                    className="border border-gray-200 text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
+                                    key={item.roleId}
                                 >
-                                    <i className="fa-solid fa-pen"></i>
-                                </button>
-                                <button>
-                                    <i className="fa-solid fa-trash"></i>
-                                </button>
-                                </td>
-                            </tr>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  ">
+                                        {item.roleId}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-middle  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
+                                        {item.role}
+                                    </td>
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
+                                        {item.description}
+                                    </td>
+
+                                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
+                                    <button
+                                        onClick={() => {
+                                            setShowUpdateModal(true);
+                                            setUpdateData(item);
+                                        }}
+                                    >
+                                        <i className="fa-solid fa-pen"></i>
+                                    </button>
+                                    <button>
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                    </td>
+                                </tr>
+                            ))}
                         </Table>
                     </div>
                 </div>
@@ -188,9 +225,9 @@ const RoleManagement = () => {
                             <input
                                 type="text"
                                 placeholder="Role"
-                                name="roleTitle"
+                                name="role"
                                 className="p-2 bg-gray-200 rounded-md"
-                                defaultValue={updateData.roleTitle}
+                                defaultValue={updateData.role}
                                 onChange={(e) => onChangeData(e)}
                             />
                         </div>
@@ -211,6 +248,7 @@ const RoleManagement = () => {
                 <div className="flex gap-2 justify-center">
                     <button
                         className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+                        onClick={() => handleUpdateData()}
                     >
                         Update Role
                     </button>
