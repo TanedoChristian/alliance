@@ -52,7 +52,7 @@ const RoleManagement = () => {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
-      url: `http://localhost:8080/spring-hibernate-jpa/role/update/${updateData.roleId}`,
+      url: `${Setup.SERVER_URL()}/role/update/${updateData.roleId}`,
       data: updateData,
     }).then((data) => {
       console.log(data);
@@ -60,6 +60,19 @@ const RoleManagement = () => {
       setShowUpdateModal(false);
     });
   };
+
+  const handleDeleteData = (id: any) => {
+    axios({
+        method: "delete",
+        url: Setup.SERVER_URL() + "/role/delete/" + id,
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+    }).then((data) => {
+        setSuccess(!success);
+        console.log(data);
+    });
+  }
 
   return (
     <div className="w-full h-screen overflow-hidden">
@@ -156,13 +169,16 @@ const RoleManagement = () => {
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
                     <button
                       onClick={() => {
-                        setShowUpdateModal(true);
+                        console.log(item)
                         setUpdateData(item);
+                        setShowUpdateModal(true);
                       }}
                     >
                       <i className="fa-solid fa-pen"></i>
                     </button>
-                    <button>
+                    <button
+                        onClick={() => handleDeleteData(item.roleId)}
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </td>
