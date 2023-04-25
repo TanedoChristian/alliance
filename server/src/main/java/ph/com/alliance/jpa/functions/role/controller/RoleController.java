@@ -41,7 +41,7 @@ public class RoleController {
 	}
 	
 	@PutMapping("/update{roleId}")
-	public ApiResult updateRole(@PathVariable Integer roleId, Role role) {
+	public ApiResult updateRole(@PathVariable Integer roleId, @RequestBody Role role) {
 		iRoleService.updateRole(roleId, role);
 		return ApiResult.CreateSuccess("Updated Successfully!");
 	}
