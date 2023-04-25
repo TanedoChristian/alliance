@@ -82,6 +82,8 @@ const testMachine = createMachine(
       validateLogin: (context, event) => {
         localStorage.setItem("access_token", event.data.access_token);
         localStorage.setItem("employee_id", event.data.employee_id);
+        localStorage.setItem("profile_img", event.data.profile_img);
+        localStorage.setItem("username", event.data.username);
         localStorage.setItem("type", event.data.type);
         window.location.href = "/dashboard";
       },

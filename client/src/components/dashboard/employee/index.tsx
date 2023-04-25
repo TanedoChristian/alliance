@@ -6,43 +6,41 @@ import Modal from "../../modal";
 import axios from "axios";
 
 const EmployeeDashBoard = () => {
-
-  const [tickets, setTickets]: any = useState([])
-  const [ticket, setTicket]: any = useState({})
-  const [file, setFile]:any = useState([])
-  const [success, setSuccess] = useState(false)
+  const [tickets, setTickets]: any = useState([]);
+  const [ticket, setTicket]: any = useState({});
+  const [file, setFile]: any = useState([]);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     axios({
       method: "GET",
-      url: "http://localhost:8080/spring-hibernate-jpa/ticket/gettable", 
+      url: "http://localhost:8080/spring-hibernate-jpa/ticket/gettable",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
       },
-    }).then(({data}) => {
-      setTickets(data.data)
-    })
-  }, [success])
-
+    }).then(({ data }) => {
+      setTickets(data.data);
+    });
+  }, [success]);
 
   const onChange = (e: any) => {
-    const {name, value} = e.target
+    const { name, value } = e.target;
     setTicket((prev: any) => {
-      return {...ticket, [name]: value}
-    })
-  }
+      return { ...ticket, [name]: value };
+    });
+  };
 
   const onChangeFile = (e: any) => {
-    setFile(e.target.files[0])
-  }
+    setFile(e.target.files[0]);
+  };
 
   const submitTicket = () => {
     axios({
       method: "POST",
-      url: "http://localhost:8080/spring-hibernate-jpa/ticket/create", 
+      url: "http://localhost:8080/spring-hibernate-jpa/ticket/create",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        "Content-Type": "multipart/form-data"
+        "Content-Type": "multipart/form-data",
       },
 
       data: {
@@ -50,40 +48,44 @@ const EmployeeDashBoard = () => {
         file: file,
         employee_id: localStorage.getItem("employee_id"),
         date_issued: new Date(),
-        assingee_id: ticket.category
-      }
-    }).then(({data}) => {
-      setSuccess(!success)
-      setModalOpen(false)
-      setFile([])
-    })
-
-   
-
-  }
-
+        assingee_id: ticket.category,
+      },
+    }).then(({ data }) => {
+      setSuccess(!success);
+      setModalOpen(false);
+      setFile([]);
+    });
+  };
 
   const [isOpen, setModalOpen] = useState(false);
 
   const handleClose = () => {
     setModalOpen(false);
-  }
+  };
 
   return (
     <div>
-
-      <Modal isOpen={isOpen} handleClose={handleClose} height="h-[70%]" width="w-[60%]" title="Add Ticket">
-      <form className="p-5 flex flex-col gap-10 h-full " onSubmit={(e) => e.preventDefault()}>
+      <Modal
+        isOpen={isOpen}
+        handleClose={handleClose}
+        height="h-[70%]"
+        width="w-[60%]"
+        title="Add Ticket"
+      >
+        <form
+          className="p-5 flex flex-col gap-10 h-full "
+          onSubmit={(e) => e.preventDefault()}
+        >
           <div className="flex gap-3 items-center ">
             <label>Category: </label>
             <div className="relative ">
-              <div className="h-10  flex border border-gray-100 rounded-md items-center">
-                <select 
-                    className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block w-full p-3 " 
-                    name="category"
-                    onChange={onChange}
+              <div className="h-10 flex border border-gray-100 rounded-md items-center">
+                <select
+                  className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block w-full p-3 "
+                  name="category"
+                  onChange={onChange}
                 >
-                  <option selected >
+                  <option selected>
                     Choose Category
                     <i className="fa-solid fa-ellipsis-vertical fa-rotate-90 px-2"></i>
                   </option>
@@ -110,7 +112,6 @@ const EmployeeDashBoard = () => {
                   className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block w-full p-3 "
                   name="status"
                   onChange={onChange}
-
                 >
                   <option selected>Choose a Status</option>
                   <option value="1">High</option>
@@ -145,7 +146,6 @@ const EmployeeDashBoard = () => {
                           type="file"
                           className="hidden"
                           onChange={onChangeFile}
-                          
                         />
                       </label>
                     </span>
@@ -194,35 +194,27 @@ const EmployeeDashBoard = () => {
                 ></textarea>
               </div>
             </div>
-            
-            <div className="w-full flex justify-between px-3" >
-            <p className="text-ellipsis">
-                  Supported types: jpeg, jpg, pdf, png  
-                </p>
+
+            <div className="w-full flex justify-between px-3">
+              <p className="text-ellipsis">
+                Supported types: jpeg, jpg, pdf, png
+              </p>
               <div
                 className="p-2 rounded-xl bg-red-100 text-red-500  relative"
-                style={{display: file.name ? "block" : "none"}}
+                style={{ display: file.name ? "block" : "none" }}
               >
-                <p className="text-ellipsis">
-                {file.name ?? ""}
-                </p>
+                <p className="text-ellipsis">{file.name ?? ""}</p>
 
                 <p className="text-ellipsis">
-                  Supported types: jpeg, jpg, pdf, png  
+                  Supported types: jpeg, jpg, pdf, png
                 </p>
 
-                
-                
-
-                <button
-                  className="absolute top-[-5px] right-0  rounded-full "
-                >
-                 
+                <button className="absolute top-[-5px] right-0  rounded-full ">
                   <i className="fa-regular fa-circle-xmark "></i>
                 </button>
               </div>
               <button
-                type="submit"  
+                type="submit"
                 className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
                 onClick={submitTicket}
               >
@@ -231,7 +223,6 @@ const EmployeeDashBoard = () => {
             </div>
           </div>
         </form>
-        
       </Modal>
 
       <div className="w-full h-screen flex flex-col">
@@ -310,37 +301,33 @@ const EmployeeDashBoard = () => {
             </div>
 
             <div className="bg-white rounded-xl w-full h-[100%] flex flex-col gap-5">
-              <Table headers={["Ticket ID", "Description", "Category", "Status", "Assign To", "Date Issued"]}>
+              <Table
+                headers={[
+                  "Ticket ID",
+                  "Description",
+                  "Category",
+                  "Status",
+                  "Assign To",
+                  "Date Issued",
+                ]}
+              >
                 {tickets.map((item: any) => (
                   <tr
                     className="border border-gray-200  text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
                     key={item.ticketId}
                   >
-
-                   <td
-                      className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 overflow-hidden text-ellipsis"
-                     
-                    >
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 overflow-hidden text-ellipsis">
                       {item.ticketId}
                     </td>
 
-                    <td
-                      className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 overflow-hidden text-ellipsis"
-                      
-                    >
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 overflow-hidden text-ellipsis">
                       {item.description}
                     </td>
 
-                    <td
-                      className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 "
-                      
-                    >
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                       {item.category_title}
                     </td>
-                    <td
-                      className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 "
-                     
-                    >
+                    <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                       <span className="p-2 bg-red-200  text-red-600 rounded-md flex w-[40%] justify-center">
                         {item.status === 1
                           ? "High"

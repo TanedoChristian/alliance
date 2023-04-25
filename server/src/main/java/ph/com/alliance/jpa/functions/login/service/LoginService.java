@@ -51,6 +51,8 @@ public class LoginService implements ILoginService, UserDetailsService, TokenEnh
         EmployeeModel employeeModel = ((List<EmployeeModel>) employeeDao.findAll()).stream().filter(u -> u.getUsername().equals(user.getUsername())).findFirst().orElse(null);
         final Map<String, Object> additionalInfo = new HashMap<>();
         additionalInfo.put("username", user.getUsername());
+        additionalInfo.put("profile_img", employeeModel.getImg());
+        additionalInfo.put("username", employeeModel.getUsername());
         additionalInfo.put("employee_id", employeeModel.getEmployeeId());
         additionalInfo.put("type", employeeModel.getType());
         additionalInfo.put("authorities", user.getAuthorities());
