@@ -8,12 +8,9 @@ import Category from "./category";
 import Modal from "../../modal";
 import Table from "../../table";
 import SideNav from "../../sidenav";
+import TicketStatus from "../../ticket-status";
 
 const Dashboard = () => {
-
- 
-
-
   const [ticket, setTicket] = useState([]);
 
   const [onDone, setDone] = useState(false);
@@ -40,8 +37,6 @@ const Dashboard = () => {
   };
 
   return (
-    
-
     <div className="flex  h-screen w-full overflow-hidden ">
       <Modal
         handleClose={handleClose}
@@ -114,12 +109,10 @@ const Dashboard = () => {
                           className="hidden"
                           onChange={(e: any) => {
                             setShowFile(true);
+
                             send({
-                              type: "ON_CHANGE_TICKET",
-                              data: {
-                                ...context.updateTicket,
-                                attachment: e.target.files[0].name,
-                              },
+                              type: "ON_CHANGE_FILE",
+                              data: e.target.files[0],
                             });
                           }}
                         />
@@ -179,9 +172,7 @@ const Dashboard = () => {
                 className="p-2 rounded-xl bg-red-100 text-red-500  relative"
                 style={{ display: showFile ? "block" : "none" }}
               >
-                <p className="text-ellipsis">
-                  {context.updateTicket.attachment}
-                </p>
+                <p className="text-ellipsis">{context.file.name ?? ""}</p>
                 <button
                   className="absolute top-[-5px] right-0  rounded-full "
                   onClick={() => {
@@ -415,94 +406,16 @@ const Dashboard = () => {
       </Modal>
 
       <div className=" w-full">
-        <div className="h-[8vh] w-full  flex relative bg-gray-800 ">
-          <div className="absolute flex w-full  h-full ">
-            <div className="flex p-5 px-7 justify-between items-center w-full ">
-              <img
-                src="https://www.alliance.com.ph/images/asi-logo.svg"
-                className="w-[10%]"
-              />
-              <div className="flex gap-2">
-                <img
-                  className="w-9 h-9 rounded-full "
-                  src="https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600"
-                />
-                <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    ></path>
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                  </svg>
-                </span>
-                <div
-                  className="inline-flex justify-center items-center ml-4 cursor-pointer"
-                  onClick={() => {
-                    window.location.href = "/";
-                  }}
-                >
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Header />
 
         <div className="flex w-full justify-between h-screen">
-        <SideNav dashboard={true}/>
-            
-    
+          <SideNav dashboard={true} />
 
           <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl    ">
             <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
               <div className="flex  w-full p-3 justify-between px-5 items-center ">
                 <h1 className="text-3xl font-bold">Tickets </h1>
-                <ul className="w-[50%] flex gap-3 justify-end ">
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-regular fa-clock text-xs"></i>
-                    12 Pending Tickets
-                  </li>
-
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-rotate text-xs"></i>
-                    98 Ongoing Tickets
-                  </li>
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-circle-check text-xs"></i>6
-                    Resolved Tickets
-                  </li>
-                  <li className="p-2 py-3 flex items-center bg-red-500 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-circle-xmark text-xs"></i>8
-                    Cancelled Tickets
-                  </li>
-                </ul>
+                <TicketStatus />
               </div>
               <Category
                 showOptions={false}
@@ -518,7 +431,6 @@ const Dashboard = () => {
                   <tr
                     className="border border-gray-200  text-gray-600 hover:shadow-md hover:bg-blue-50 hover:font-medium hover:text-gray-700 hover:cursor-pointer"
                     key={item.ticketId}
-                   
                   >
                     <td className="p-3 flex justify-center">
                       <input

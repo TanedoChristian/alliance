@@ -14,10 +14,12 @@ const UserManagementMachine = createMachine(
         "Firstname",
         "Lastname",
         "Username",
+        "Email",
         "Role",
         "Actions",
       ],
       user: {
+        email: "",
         employeeId: "",
         firstname: "",
         lastname: "",

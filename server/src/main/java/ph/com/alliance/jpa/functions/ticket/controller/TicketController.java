@@ -1,16 +1,22 @@
 package ph.com.alliance.jpa.functions.ticket.controller;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-import java.io.File;
-import javax.annotation.Resource;
 
+import org.apache.commons.compress.utils.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.core.env.Environment;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,20 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.itextpdf.text.pdf.AcroFields.Item;
-import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
-import com.mysql.cj.xdevapi.JsonArray;
-
 import ph.com.alliance.jpa.common.ApiResult;
-import ph.com.alliance.jpa.common.MailModel;
-import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
 import ph.com.alliance.jpa.functions.email.service.EmailService;
-import ph.com.alliance.jpa.functions.ticket.model.Ticket;
 import ph.com.alliance.jpa.functions.ticket.model.TicketModel;
-import ph.com.alliance.jpa.functions.ticket.model.TicketTable;
 import ph.com.alliance.jpa.functions.ticket.service.IticketService;
 
 @RestController
@@ -44,6 +39,9 @@ public class TicketController{
 	
 	@Autowired
 	IticketService ticketservice;
+	
+	@Autowired
+	private Environment env;
 	
 	@Autowired
 	EmailService emailService;
@@ -62,23 +60,17 @@ public class TicketController{
 	}
 	
 
-//	@DeleteMapping("/delete")
-//	public void deleteAll(@RequestBody TicketTable ticketTable)  {
-//		
-//		
-//	}
+
 	
 	@DeleteMapping("/delete")
 	public void deleteAll(@RequestBody Map<String, Object> ticketTable)  {
-		
 		List<Integer> ticketIds = (List<Integer>) ticketTable.get("ticketId");
 		ticketservice.deleteTickets(ticketIds);
 	}
 	
 	@PostMapping("/create")
-	public ApiResult createTicket(@RequestBody TicketModel ticketmodel) {
-		
-		ticketservice.createTicket(ticketmodel);
+	public ApiResult createTicket(TicketModel ticketmodel, MultipartFile file) {
+		ticketservice.createTicket(ticketmodel, file);
 		return ApiResult.CreateSuccess(ticketmodel);
 	}
 	
@@ -102,12 +94,20 @@ public class TicketController{
 	}
 	
 	@PostMapping("file")
-	public Object testFile(@RequestParam("file") MultipartFile file)
+	public Object testFile(@RequestParam("file") MultipartFile file) throws IOException
 	{
-		
+	
+		String basePath = env.getProperty("files.path") + "/sampleuploads";
+		File directory = new File(basePath);
+		if(!directory.exists()) {
+			directory.mkdir();
+		}
+	    Path filePath = Paths.get(basePath, file.getOriginalFilename());
+		Files.write(filePath, file.getBytes());
 		return file;
 		 
 	}
+	
 	
 	
 	

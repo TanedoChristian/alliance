@@ -6,12 +6,14 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import ph.com.alliance.jpa.functions.employee.dao.IEmployeeDao;
 import ph.com.alliance.jpa.functions.employee.model.Employee;
 import ph.com.alliance.jpa.functions.employee.model.EmployeeModel;
+import ph.com.alliance.jpa.functions.file.service.FileService;
 import ph.com.alliance.jpa.functions.ticket.model.Ticket;
 import ph.com.alliance.jpa.functions.ticket.model.TicketModel;
 
@@ -20,6 +22,9 @@ public class EmployeeService implements IEmployeeService{
 
 	@Autowired
 	IEmployeeDao employeeDao;
+	
+	@Autowired
+	FileService fileService;
 
 	@Override
 	public Object getAllEmployee() {
@@ -66,16 +71,18 @@ public class EmployeeService implements IEmployeeService{
 
 
 	@Override
-	public void updateEmployee(Integer id, Employee employee) {
+	public void updateEmployee(Integer id, Employee employee, MultipartFile file) {
 		// TODO Auto-generated method stub
 		try {
 			
-			EmployeeModel employeeModel = employeeDao.findById(id).orElse(null);
+			EmployeeModel employeeModel = employeeDao.findById(id).orElse(null);			
 			employeeModel.setEmployeeId(id);
+			
+			
 			
 			if(employee.getFirstname() != null) {
 				employeeModel.setFirstname(employee.getFirstname());
-			}
+			}	
 			
 			if(employee.getLastname() != null) {
 				employeeModel.setLastname(employee.getLastname());
@@ -93,16 +100,59 @@ public class EmployeeService implements IEmployeeService{
 				employeeModel.setPassword(employee.getPassword());
 			}
 			
+			if(employee.getEmail() != null) {
+				employeeModel.setEmail(employee.getEmail());
+			}
+			
+			if(file != null) {
+				fileService.uploadFile(file);
+				employeeModel.setImg(file.getOriginalFilename());
+			}
 			
 			
 			employeeDao.saveAndFlush(employeeModel);
-			BeanUtils.copyProperties(employeeModel, employee);
-			
-			
-			
+			BeanUtils.copyProperties(employeeModel, employee);		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+
+
+	@Override
+	public Object getById(Integer id) {
+		return employeeDao.findById(id).orElse(null);
+	}
+
+
+
+	@Override
+	public void updatePassword(Integer id, String oldPassword, String newPassword) {
+		// TODO Auto-generated method stub
+		
+		try {
+			EmployeeModel employeeModel = employeeDao.findById(id).orElse(null);
+			
+			if(employeeModel.getPassword().equals(oldPassword)) {
+				employeeModel.setPassword(newPassword);
+				employeeDao.saveAndFlush(employeeModel);
+			}
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+
+
+
+	@Override
+	public Object getAllAdmin() {
+		return employeeDao.getAllAdmin();
 	}
 
 	

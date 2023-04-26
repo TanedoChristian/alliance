@@ -2,13 +2,28 @@ package ph.com.alliance.jpa.functions.employee.model;
 
 
 public class Employee {
+	
 	private Integer employeeId;
 	private String firstname;
 	private String lastname;
 	private String username;
 	private String password;
 	private String type;
+	private String img;
+	private String email;
 	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public String getFirstname() {
 		return firstname;

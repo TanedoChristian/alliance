@@ -1,6 +1,7 @@
 package ph.com.alliance.jpa.functions.employee.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,10 @@ import ph.com.alliance.jpa.functions.ticket.model.Ticket;
 public interface IEmployeeDao extends JpaRepository<EmployeeModel, Integer>{
 	@Query(value="select * from hr.employee where username = :username and password = :password", nativeQuery = true)
 	List<EmployeeModel> findEmployee(@Param(value = "username") String username, @Param(value = "password") String password);
+	
+	@Query(value="SELECT * from employee where type='admin'", nativeQuery = true)
+	List<Map<String, Object>> getAllAdmin();
+	
 
 }
+  

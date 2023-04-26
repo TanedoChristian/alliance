@@ -44,7 +44,7 @@ public class OAuth2SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(HttpMethod.OPTIONS, "/**/**");
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/employee/**", "/mail/**", "/swagger-resources/**",  "/swagger-ui.html", "/webjars/**", "/api-docs/**"
+        web.ignoring().antMatchers("/v2/api-docs", "/configuration/**", "/employee/**", "/ticket/**", "/image/**", "/mail/**", "/swagger-resources/**",  "/swagger-ui.html", "/webjars/**", "/api-docs/**"
         		);;
     }
 

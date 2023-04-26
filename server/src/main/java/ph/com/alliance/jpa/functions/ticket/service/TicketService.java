@@ -9,11 +9,13 @@ import java.util.Optional;
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
 import ph.com.alliance.jpa.functions.email.service.EmailService;
+import ph.com.alliance.jpa.functions.file.service.FileService;
 import ph.com.alliance.jpa.functions.ticket.dao.ITicketDao;
 import ph.com.alliance.jpa.functions.ticket.model.Ticket;
 import ph.com.alliance.jpa.functions.ticket.model.TicketModel;
@@ -22,6 +24,9 @@ public class TicketService implements IticketService {
 
 	@Autowired
 	ITicketDao ticketDao;
+	
+	@Autowired
+	FileService fileService;
 	
 	@Autowired
 	EmailService emailService;
@@ -64,16 +69,14 @@ public class TicketService implements IticketService {
 		}
 	}
 	
-	
-	
-	
-	
 	@Override
-	public void createTicket(TicketModel ticketmodel) {
+	public void createTicket(TicketModel ticketmodel, MultipartFile file) {
 		
-		Ticket ticket = new Ticket();
 		try {
+			Ticket ticket = new Ticket();
+			ticketmodel.setAttachment(file.getOriginalFilename());
 			ticket.setTicketId(null);
+			fileService.uploadFile(file);
 			BeanUtils.copyProperties(ticket, ticketmodel);
 			ticketDao.saveAndFlush(ticket);
 		} catch (IllegalAccessException e1) {
