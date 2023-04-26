@@ -9,6 +9,7 @@ import CategoryManagement from "./components/admin/category-management";
 import AdminPanel from "./components/admin/admin-panel";
 import RoleManagement from "./components/admin/role-management";
 import AccountSettings from "./components/account-settings";
+import UserManagementHr from "./components/hr/user-management";
 
 
 const App = () => {
@@ -34,6 +35,10 @@ const App = () => {
           <Route
             path="/admin/rolemanagement"
             element={<RoleManagement />}
+          ></Route>
+          <Route
+            path="/hr/usermanagement"
+            element={<UserManagementHr />}
           ></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
