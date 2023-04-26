@@ -7,13 +7,10 @@ import DashboardContainer from "./components/dashboard";
 import UserManagement from "./components/admin/user-management";
 import CategoryManagement from "./components/admin/category-management";
 import AdminPanel from "./components/admin/admin-panel";
-<<<<<<< HEAD
-=======
 import RoleManagement from "./components/admin/role-management";
 import AccountSettings from "./components/account-settings";
 import UserManagementHr from "./components/hr/user-management";
 
->>>>>>> 3933eae243268bdab94ae55e1f685fef88411544
 
 const App = () => {
   return (
@@ -36,17 +33,12 @@ const App = () => {
             element={<CategoryManagement />}
           ></Route>
           <Route
-<<<<<<< HEAD
-            path="/admin/adminpanel"
-            element={<AdminPanel />}
-=======
             path="/admin/rolemanagement"
             element={<RoleManagement />}
           ></Route>
           <Route
             path="/hr/usermanagement"
             element={<UserManagementHr />}
->>>>>>> 3933eae243268bdab94ae55e1f685fef88411544
           ></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
