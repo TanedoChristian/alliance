@@ -22,3 +22,4 @@ public interface IEmployeeDao extends JpaRepository<EmployeeModel, Integer>{
 	
 
 }
+  

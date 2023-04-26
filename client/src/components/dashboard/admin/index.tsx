@@ -8,6 +8,7 @@ import Category from "./category";
 import Modal from "../../modal";
 import Table from "../../table";
 import SideNav from "../../sidenav";
+import TicketStatus from "../../ticket-status";
 
 const Dashboard = () => {
   const [ticket, setTicket] = useState([]);
@@ -414,25 +415,7 @@ const Dashboard = () => {
             <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
               <div className="flex  w-full p-3 justify-between px-5 items-center ">
                 <h1 className="text-3xl font-bold">Tickets </h1>
-                <ul className="w-[50%] flex gap-3 justify-end ">
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-regular fa-clock text-xs"></i>
-                    12 Pending Tickets
-                  </li>
-
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-rotate text-xs"></i>
-                    98 Ongoing Tickets
-                  </li>
-                  <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-circle-check text-xs"></i>6
-                    Resolved Tickets
-                  </li>
-                  <li className="p-2 py-3 flex items-center bg-red-500 text-white rounded-lg text-xs gap-2">
-                    <i className="fa-solid fa-circle-xmark text-xs"></i>8
-                    Cancelled Tickets
-                  </li>
-                </ul>
+                <TicketStatus />
               </div>
               <Category
                 showOptions={false}
