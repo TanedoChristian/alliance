@@ -20,7 +20,7 @@ public interface ITicketDao extends JpaRepository<Ticket, Integer>{
 	@Query(value="select ticket.ticketId, ticket.description, ticket.status, ticket.attachment, category.category_title, ticket.employee_id,  ticket.date_issued, concat(category.firstname, ' ' , category.lastname) as assign_to from hr.ticket inner join category on category.categoryId = ticket.category", nativeQuery=true)
 	List<Map<String, Object>> getAllFromTable();
 	
-	@Query(value="select ticket.ticketId, ticket.description, ticket.status, ticket.attachment, category.category_title, concat(employee.firstname, ' ',employee.lastname) as requested_by,  ticket.date_issued, concat(category.firstname, ' ' , category.lastname) as assign_to from hr.ticket inner join category on category.categoryId = ticket.category inner join employee on employee.employeeId = ticket.category where category.employeeid = :id", nativeQuery = true)
+	@Query(value="select ticket.status, ticket.description, ticket.category, concat(employee.firstname, ' ', employee.lastname) as requested_by, ticket.ticketId, ticket.attachment, category.category_title, ticket.date_issued, concat(category.firstname, ' ', category.lastname) as assign_to from ticket inner join employee on employeeId = ticket.employee_id inner join category on category.categoryId = ticket.category where category.employeeid = :id", nativeQuery = true)
 	List<Map<String, Object>> getTicketsByAssignee(@Param(value = "id") Integer id);
 	
 

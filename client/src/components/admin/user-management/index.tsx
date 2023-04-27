@@ -36,14 +36,16 @@ const UserManagement = () => {
         height="h-[70%]"
         width="w-[50%]"
         title="Add Employee"
+        handleClose={() => setShowAddModal(false)}
       >
         <div className="w-full bg-white flex p-10 justify-center">
-          <div className="w-[50%] flex flex-col  gap-3 ">
+          <form className="flex flex-col gap-3" onSubmit={submitEmployee}>
             <div className="flex gap-2 items-center justify-between">
               <label>First Name: </label>
               <input
                 type="text"
                 placeholder="First Name"
+                required
                 className="p-2 bg-gray-200 rounded-md"
                 onChange={(e) => {
                   send({
@@ -60,6 +62,7 @@ const UserManagement = () => {
               <label>Last Name: </label>
               <input
                 type="text"
+                required
                 placeholder="Last Name"
                 className="p-2 bg-gray-200 rounded-md"
                 onChange={(e) => {
@@ -77,6 +80,7 @@ const UserManagement = () => {
               <label>Username: </label>
               <input
                 type="text"
+                required
                 placeholder="Username"
                 className="p-2 bg-gray-200 rounded-md"
                 onChange={(e) => {
@@ -94,6 +98,7 @@ const UserManagement = () => {
               <label>Email Address: </label>
               <input
                 type="text"
+                required
                 placeholder="Email Address"
                 className="p-2 bg-gray-200 rounded-md"
                 onChange={(e) => {
@@ -111,6 +116,7 @@ const UserManagement = () => {
               <label>Type: </label>
               <input
                 type="text"
+                required
                 placeholder="Type"
                 className="p-2 bg-gray-200 rounded-md"
                 onChange={(e) => {
@@ -124,24 +130,24 @@ const UserManagement = () => {
                 }}
               />
             </div>
-          </div>
-        </div>
 
-        <div className="flex gap-2 justify-center">
-          <button
-            className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
-            onClick={submitEmployee}
-          >
-            Submit
-          </button>
-          <button
-            className="p-3 px-6 rounded-xl bg-gray-400 text-white font-medium"
-            onClick={() => {
-              setShowAddModal(false);
-            }}
-          >
-            Cancel
-          </button>
+            <div className="flex gap-3 justify-center">
+              <input
+                type="submit"
+                className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+                value="Submit"
+              />
+
+              <input
+                type="submit"
+                className="p-3 px-6 rounded-xl bg-gray-400 text-white font-medium"
+                onClick={() => {
+                  setShowAddModal(false);
+                }}
+                value="Cancel"
+              />
+            </div>
+          </form>
         </div>
       </Modal>
 

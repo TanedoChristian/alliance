@@ -106,6 +106,7 @@ const UserManagementMachine = createMachine(
             Setup.SERVER_URL() + "/employee/update/" + context.user.employeeId,
           headers: {
             Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+            "Content-Type": "multipart/form-data",
           },
           data: { ...context.user },
         }).then((data) => data);

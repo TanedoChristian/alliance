@@ -7,20 +7,17 @@ const Category = (props: any) => {
   };
 
   return (
-    <div className="flex justify-between px-5  items-center w-full  gap-3 h-[7vh]  z-10  ">
-      <span
+    <div className="flex justify-end px-5  items-center w-full  gap-3 h-[7vh]  z-10  ">
+      {/* <span
         className="flex  items-center gap-3  shadow-md px-5 py-2.5 rounded-md  cursor-pointer bg-red-500"
         onClick={() => {
           props.setModalOpen(true);
         }}
       >
         <p className="text-xs flex items-center gap-3  text-white">
-          Create
-          <span className="material-symbols-outlined text-[20px]">
-            confirmation_number
-          </span>
+          <span className="material-symbols-outlined text-[20px]"></span>
         </p>
-      </span>
+      </span> */}
       <div className="flex w-[80%] justify-end gap-2">
         <span
           className="flex items-center bg-white shadow-md px-5 py-2  rounded-md border border-gray-200 font-bold text-gray-700 cursor-pointer"

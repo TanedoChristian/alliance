@@ -204,7 +204,7 @@ const Dashboard = () => {
         </form>
       </Modal>
 
-      <Modal
+      {/* <Modal
         isOpen={updateModalOpen}
         handleClose={handleCloseUpdateModal}
         title="Update Tickets"
@@ -403,7 +403,7 @@ const Dashboard = () => {
             </div>
           </div>
         </form>
-      </Modal>
+      </Modal> */}
 
       <div className=" w-full">
         <Header />

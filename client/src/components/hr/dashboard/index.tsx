@@ -10,6 +10,7 @@ const DashBoardHr = (props: any) => {
   const [ticket, setTicket]: any = useState({});
   const [isOpenModal, setOpenModal] = useState(false);
   const [showGenerateModal, setShowGenerateModal] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleCloseGenerateModal = () => {
     setShowGenerateModal(false);
@@ -31,7 +32,7 @@ const DashBoardHr = (props: any) => {
         console.log(data.data);
         setTickets(data.data);
       });
-  }, []);
+  }, [success]);
 
   const handleClose = () => {
     setOpenModal(false);
@@ -54,6 +55,7 @@ const DashBoardHr = (props: any) => {
       data: { ...ticket },
     }).then((data) => {
       setOpenModal(false);
+      setSuccess(!success);
     });
   };
 
@@ -112,7 +114,15 @@ const DashBoardHr = (props: any) => {
                 onChange={handleChange}
                 name="status"
               >
-                <option selected>Select Status</option>
+                <option selected>
+                  {ticket.status == 1
+                    ? "Pending"
+                    : ticket.status == 2
+                    ? "Ongoing"
+                    : ticket.status == 3
+                    ? "Done"
+                    : "Cancel"}
+                </option>
                 <option value={1}>Pending</option>
                 <option value={2}>On Going</option>
                 <option value={3}>Done</option>
