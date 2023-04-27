@@ -11,23 +11,23 @@ import RoleManagement from "./components/admin/role-management";
 import AccountSettings from "./components/account-settings";
 import UserManagementHr from "./components/hr/user-management";
 
-
 const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route
+            path="/hr/usermanagement"
+            element={<UserManagementHr />}
+          ></Route>
           <Route path="/account/settings" element={<AccountSettings />}></Route>
           <Route path="/dashboard" element={<DashboardContainer />}></Route>
           <Route
             path="/admin/usermanagement"
             element={<UserManagement />}
           ></Route>
-          <Route
-            path="/admin/panel"
-            element={<AdminPanel />}
-          ></Route>
+          <Route path="/admin/panel" element={<AdminPanel />}></Route>
           <Route
             path="/admin/categorymanagement"
             element={<CategoryManagement />}

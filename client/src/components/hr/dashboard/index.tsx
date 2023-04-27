@@ -172,7 +172,7 @@ const DashBoardHr = (props: any) => {
               </li>
               <li>
                 <a
-                  href="/admin/usermanagement"
+                  href="/hr/usermanagement"
                   className={` flex flex-row items-center ${
                     props.user ? "text-red-500" : ""
                   }  text-sm focus:outline-none text-gray-700 text-[0.8rem]  gap-3 rounded-xl font-medium`}
