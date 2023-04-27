@@ -11,6 +11,11 @@ const RoleManagement = () => {
   const [success, setSuccess] = useState(false);
   const [role, setRole] = useState([]);
 
+const [addData, setAddData] = useState({
+   role: "",
+   description: "",
+}) 
+
   const [updateData, setUpdateData] = useState({
     roleId: "",
     role: "",
@@ -36,6 +41,21 @@ const RoleManagement = () => {
         setRole(data.data);
       });
   }, [success]);
+
+  const handleAddData = () => {
+    axios({
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      url: `${Setup.SERVER_URL()}/role/insert`,
+      data: addData,
+    }).then((data) => {
+      console.log(data);
+      setSuccess(!success);
+      setShowAddModal(false);
+    });
+  };
 
   const onChangeData = (e: any) => {
     const { name, value } = e.target;
@@ -205,6 +225,11 @@ const RoleManagement = () => {
                 placeholder="Role"
                 name="roleTitle"
                 className="p-2 bg-gray-200 rounded-md"
+                onChange={e => {
+                  setAddData(prev => {
+                      return {...prev,role:e.target.value}
+                  })
+              }}
               />
             </div>
             <div className="flex gap-2 items-center justify-between">
@@ -214,13 +239,18 @@ const RoleManagement = () => {
                 placeholder="Description"
                 name="description"
                 className="p-2 bg-gray-200 rounded-md"
+                onChange={e => {
+                  setAddData(prev => {
+                      return {...prev,description:e.target.value}
+                  })
+              }}
               />
             </div>
           </div>
         </div>
 
         <div className="flex gap-2 justify-center">
-          <button className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium">
+          <button className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium" onClick={handleAddData}>
             Add Role
           </button>
           <button

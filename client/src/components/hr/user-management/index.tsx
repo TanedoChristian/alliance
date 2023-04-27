@@ -38,15 +38,14 @@ const UserManagementHr = () => {
   return (
     <div className="w-full h-screen overflow-hidden">
       <Header />
-
-      <div className="flex justify-between">
+      <div className="flex justify-between h-[92vh]">
         <div className="flex w-[15%] bg-[#f6f8fc] h-full">
           <ul className="flex flex-col py-20 space-y-1 justify-between  p-4 h-[90vh]">
             <div className="flex flex-col gap-5">
               <li className="w-[100%]">
                 <a
                   href="/dashboard"
-                  className={` flex  items-center  text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
+                  className={` flex  items-center text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
                 >
                   <span className="material-symbols-outlined w-[2rem]">
                     confirmation_number
@@ -57,7 +56,7 @@ const UserManagementHr = () => {
               <li>
                 <a
                   href="/hr/usermanagement"
-                  className={` flex flex-row items-center  text-sm focus:outline-none  text-red-500 text-[0.8rem]  gap-3 rounded-xl font-medium`}
+                  className={` flex  items-center text-red-500 text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
                 >
                   <i className="fa-solid fa-user w-[2rem] text-lg"></i>
                   Users Management
@@ -66,10 +65,13 @@ const UserManagementHr = () => {
             </div>
           </ul>
         </div>
+
         <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl">
           <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
-            <div className="w-full flex justify-between px-10 items-center p-2">
-              <h1 className="font-bold text-xl">Users</h1>
+            <div className="flex justify-between p-5 items-center">
+              <h1 className="font-bold text-2xl text-slate-700 poppins">
+                Users
+              </h1>
             </div>
             <Table
               headers={[
@@ -116,7 +118,7 @@ const UserManagementHr = () => {
                         setShowViewModal(true);
                       }}
                     >
-                      <i className="fa-solid fa-pen"></i>
+                      <i className="fa-solid fa-eye"></i>
                     </button>
                   </td>
                 </tr>

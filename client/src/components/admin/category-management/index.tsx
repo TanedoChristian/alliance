@@ -11,6 +11,12 @@ const CategoryManagement = () => {
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const [addData, setAddData] = useState({
+    categoryTitle: "",
+    firstname: "",
+    lastname: "",
+ }) 
+
   const [updateData, setUpdateData] = useState({
     categoryId: "",
     categoryTitle: "",
@@ -40,6 +46,21 @@ const CategoryManagement = () => {
         setEmployee(data);
       });
   }, [success]);
+
+  const handleAddData = () => {
+    axios({
+      method: "post",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      url: `${Setup.SERVER_URL()}/category/insert`,
+      data: addData,
+    }).then((data) => {
+      console.log(data);
+      setSuccess(!success);
+      setShowAddModal(false);
+    });
+  };
 
   const onChangeData = (e: any) => {
     const { name, value } = e.target;
