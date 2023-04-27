@@ -4,6 +4,7 @@ import SideNav from "../../sidenav";
 import Table from "../../table";
 import axios from "axios";
 import Setup from "../../../Setup";
+import Header from "../../header";
 
 const UserManagementHr = () => {
   const [showViewModal, setShowViewModal] = useState(false);
@@ -36,72 +37,39 @@ const UserManagementHr = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden">
-      <div className="h-[8vh] w-full  flex relative bg-gray-800 ">
-        <div className="absolute flex w-full  h-full ">
-          <div className="flex p-5 px-7 justify-between items-center w-full ">
-            <img
-              src="https://www.alliance.com.ph/images/asi-logo.svg"
-              className="w-[10%]"
-            />
-            <div className="flex gap-2">
-              <img
-                className="w-9 h-9 rounded-full "
-                src="https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600"
-              />
-              <span className="inline-flex justify-center items-center ml-4">
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+      <Header />
+      <div className="flex justify-between h-[92vh]">
+      <div className="flex w-[15%] bg-[#f6f8fc] h-full">
+          <ul className="flex flex-col py-20 space-y-1 justify-between  p-4 h-[90vh]">
+            <div className="flex flex-col gap-5">
+              <li className="w-[100%]">
+                <a
+                  href="/dashboard"
+                  className={` flex  items-center text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  ></path>
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
-                </svg>
-              </span>
-              <div
-                className="inline-flex justify-center items-center ml-4 cursor-pointer"
-                onClick={() => {
-                  window.location.href = "/";
-                }}
-              >
-                <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <span className="material-symbols-outlined w-[2rem]">
+                    confirmation_number
+                  </span>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/hr/usermanagement"
+                  className={` flex  items-center text-red-500 text-sm focus:outline-none text-gray-700 text-[0.8rem] gap-3 rounded-xl font-medium`}
                 >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                  ></path>
-                </svg>
-              </div>
+                  <i className="fa-solid fa-user w-[2rem] text-lg"></i>
+                  Users Management
+                </a>
+              </li>
             </div>
-          </div>
+          </ul>
         </div>
-      </div>
 
-      <div className="flex justify-between">
-        <SideNav user={true} />
         <div className="flex  items-center w-full   py-5  flex-col h-screen bg-gray-50   rounded-t-xl shadow-xl">
           <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
-            <div className="w-full flex justify-between px-10 items-center p-2">
-              <h1 className="font-bold text-xl">Users</h1>
+            <div className="flex justify-between p-5 items-center">
+              <h1 className="font-bold text-2xl text-slate-700 poppins">Users</h1>
             </div>
             <Table headers={[
               "Employee ID",
@@ -146,7 +114,7 @@ const UserManagementHr = () => {
                         setShowViewModal(true);
                       }}
                     >
-                      <i className="fa-solid fa-pen"></i>
+                      <i className="fa-solid fa-eye"></i>
                     </button>
                   </td>
                 </tr>

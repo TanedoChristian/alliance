@@ -9,6 +9,11 @@ const DashBoardHr = (props: any) => {
   const [tickets, setTickets]: any = useState([]);
   const [ticket, setTicket]: any = useState({});
   const [isOpenModal, setOpenModal] = useState(false);
+  const [showGenerateModal, setShowGenerateModal] = useState(false);
+
+  const handleCloseGenerateModal = () => {
+    setShowGenerateModal(false)
+  }
 
   useEffect(() => {
     axios
@@ -145,7 +150,7 @@ const DashBoardHr = (props: any) => {
               </li>
               <li>
                 <a
-                  href="/admin/usermanagement"
+                  href="/hr/usermanagement"
                   className={` flex flex-row items-center ${
                     props.user ? "text-red-500" : ""
                   }  text-sm focus:outline-none text-gray-700 text-[0.8rem]  gap-3 rounded-xl font-medium`}
@@ -164,7 +169,10 @@ const DashBoardHr = (props: any) => {
                 {" "}
                 Tickets
               </h1>
-              <button className="p-3 bg-red-600 text-white rounded-md shadow-md">
+              <button 
+                className="p-3 bg-red-600 text-white rounded-md shadow-md"
+                onClick={() => setShowGenerateModal(true)}
+              >
                 {" "}
                 Generate Reports
               </button>
@@ -224,6 +232,71 @@ const DashBoardHr = (props: any) => {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={showGenerateModal}
+        height={"h-[80%]"}
+        width={"w-[40%]"}
+        title="Generate Reports"
+        handleClose={handleCloseGenerateModal}
+      >
+        <div className="flex flex-col h-full py-8 px-10">
+          <div className="flex flex-col gap-4 mx-auto">
+            <div className="flex items-center gap-5">
+                <input type="checkbox" />
+                <label htmlFor="">Aging Tickets</label>
+
+                <select className="ml-auto border border-gray-600 rounded-md py-1 px-2 text-sm">
+                  <option value="">Sample</option>
+                </select>
+            </div>
+            <div className="flex items-center gap-5">
+                <input type="checkbox" />
+                <label htmlFor="">Ticket Count Per Category</label>
+            </div>
+            <div className="flex items-center gap-5">
+                <input type="checkbox" />
+                <label htmlFor="">Ticket Count Per HR Personnel</label>
+            </div>
+            <div className="flex items-center gap-5">
+                <input type="checkbox" />
+                <label htmlFor="">Generate All Tickets</label>
+            </div>
+          </div>
+
+          <hr className="my-5 border-t border-gray-400"/>
+            
+          <p className="font-semibold">Date Range</p>
+
+          <div className="flex mt-4 justify-around text-sm">
+              <div className="flex gap-1 flex-col">
+                <label className="font-bold">From</label>
+                <input type="date" className="border border-gray-600 py-1 px-2 rounded-md" />
+              </div>
+
+              <div className="flex gap-1 flex-col">
+                <label className="font-bold">To</label>
+                <input type="date" className="border border-gray-600 py-1 px-2 rounded-md" />
+              </div>
+          </div>
+          
+          <div className="flex gap-2 justify-center mt-auto">
+            <button
+              className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+            >
+              Generate
+            </button>
+            <button
+              className="p-3 px-6 rounded-xl bg-gray-400 text-white font-medium"
+              onClick={() => {
+                setShowGenerateModal(false);
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };
