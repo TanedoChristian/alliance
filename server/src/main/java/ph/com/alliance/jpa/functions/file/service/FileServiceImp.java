@@ -11,6 +11,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -18,6 +20,10 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,6 +34,9 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opencsv.CSVWriter;
 
+import ph.com.alliance.jpa.functions.ticket.dao.ITicketDao;
+import ph.com.alliance.jpa.functions.ticket.model.TicketModel;
+
 @Service
 public class FileServiceImp implements FileService {
 
@@ -35,6 +44,8 @@ public class FileServiceImp implements FileService {
     
     @Autowired
 	private Environment env;
+    
+    
     
     @Override
     public String downloadCsv(List<List<String>> items) throws IOException {        
@@ -134,5 +145,24 @@ public class FileServiceImp implements FileService {
 		}
 		return file;
 	}
+
+	@Override
+	public ResponseEntity<byte[]> download(String fileName) throws IOException {
+		
+	
+		Path filePath = Paths.get("C:/serverFiles/sampleuploads/"+ fileName);
+		byte[] data = Files.readAllBytes(filePath);
+		
+		HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        ContentDisposition.Builder builder = ContentDisposition.builder("attachment").filename(fileName);
+        headers.setContentDisposition(builder.build());
+
+
+        return ResponseEntity.ok().headers(headers).body(data);
+
+	}
+
+
 
 }

@@ -4,6 +4,7 @@ import Table from "../../table";
 import { useMachine } from "@xstate/react";
 import Modal from "../../modal";
 import axios from "axios";
+import Header from "../../header";
 
 const EmployeeDashBoard = () => {
   const [tickets, setTickets]: any = useState([]);
@@ -47,7 +48,8 @@ const EmployeeDashBoard = () => {
         ...ticket,
         file: file,
         employee_id: localStorage.getItem("employee_id"),
-        date_issued: new Date(),
+        status: 1,
+        date_issued: new Date().toISOString().slice(0, 19).replace("T", " "),
         assingee_id: ticket.category,
       },
     }).then(({ data }) => {
@@ -104,7 +106,7 @@ const EmployeeDashBoard = () => {
             </div>
           </div>
 
-          <div className="flex gap-3 items-center ">
+          {/* <div className="flex gap-3 items-center ">
             <label>Priority: </label>
             <div className="relative ">
               <div className="h-10  flex border border-gray-100 rounded-md items-center">
@@ -120,7 +122,7 @@ const EmployeeDashBoard = () => {
                 </select>
               </div>
             </div>
-          </div>
+          </div> */}
           <div>
             <div className="w-full mb-4 border border-gray-200 rounded-lg bg-gray-50 ">
               <div className="flex items-center justify-between px-3 py-2 border-b ">
@@ -196,20 +198,24 @@ const EmployeeDashBoard = () => {
             </div>
 
             <div className="w-full flex justify-between px-3">
-              <p className="text-ellipsis">
-                Supported types: jpeg, jpg, pdf, png
+              <p
+                className="text-ellipsis"
+                style={{ display: file.name ? "none" : "block" }}
+              >
+                Supported Types: Jpg, Png, Jpeg, Pdf
               </p>
               <div
                 className="p-2 rounded-xl bg-red-100 text-red-500  relative"
                 style={{ display: file.name ? "block" : "none" }}
               >
-                <p className="text-ellipsis">{file.name ?? ""}</p>
+                <p className="text-ellipsis">{file.name}</p>
 
-                <p className="text-ellipsis">
-                  Supported types: jpeg, jpg, pdf, png
-                </p>
-
-                <button className="absolute top-[-5px] right-0  rounded-full ">
+                <button
+                  className="absolute top-[-5px] right-0  rounded-full "
+                  onClick={() => {
+                    setFile([]);
+                  }}
+                >
                   <i className="fa-regular fa-circle-xmark "></i>
                 </button>
               </div>
@@ -226,67 +232,28 @@ const EmployeeDashBoard = () => {
       </Modal>
 
       <div className="w-full h-screen flex flex-col">
-        <div className="h-[8vh] w-full  flex relative bg-gray-800 ">
-          <div className="absolute flex w-full  h-full ">
-            <div className="flex p-5 px-7 justify-between items-center w-full ">
-              <img
-                src="https://www.alliance.com.ph/images/asi-logo.svg"
-                className="w-[10%]"
-              />
-              <div className="flex gap-2">
-                <img
-                  className="w-9 h-9 rounded-full "
-                  src="https://images.pexels.com/photos/1181677/pexels-photo-1181677.jpeg?auto=compress&cs=tinysrgb&w=600"
-                />
-                <span className="inline-flex justify-center items-center ml-4">
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                    ></path>
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                    ></path>
-                  </svg>
-                </span>
-                <div
-                  className="inline-flex justify-center items-center ml-4 cursor-pointer"
-                  onClick={() => {
-                    window.location.href = "/";
-                  }}
-                >
-                  <svg
-                    className="w-6 h-6 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-                    ></path>
-                  </svg>
+        <Header />
+        <div className="flex justify-between h-screen">
+          <div className=" w-[15%]">
+            <div className="flex flex-col p-5 bg-[#f6f8fc]  h-screen  w-full">
+              <ul className="flex flex-col py-20 space-y-1 justify-between  p-4 h-[90vh]">
+                <div className="flex flex-col gap-5">
+                  <li className="w-[100%]">
+                    <a
+                      href="/dashboard"
+                      className={` flex  items-center  text-red-500
+                        text-sm focus:outline-none text-gray-700 text-[0.9rem] gap-3 rounded-xl font-medium`}
+                    >
+                      <span className="material-symbols-outlined w-[2rem]">
+                        confirmation_number
+                      </span>
+                      Dashboard
+                    </a>
+                  </li>
                 </div>
-              </div>
+              </ul>
             </div>
           </div>
-        </div>
-        <div className="flex justify-between h-screen">
-          <div className="test w-[15%]"></div>
           <main className="w-[85%] flex flex-col p-8 bg-gray-200">
             <div className="flex items-center justify-between">
               <h1 className="text-3xl font-medium mb-2"> Ticket</h1>
@@ -330,10 +297,12 @@ const EmployeeDashBoard = () => {
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                       <span className="p-2 bg-red-200  text-red-600 rounded-md flex w-[40%] justify-center">
                         {item.status === 1
-                          ? "High"
+                          ? "Pending"
                           : item.status === 2
-                          ? "Mid"
-                          : "Low"}
+                          ? "On Going"
+                          : item.status === 3
+                          ? "Done"
+                          : "Cancel"}
                       </span>
                     </td>
                     <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">

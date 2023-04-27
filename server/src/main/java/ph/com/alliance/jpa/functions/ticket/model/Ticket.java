@@ -33,8 +33,7 @@ public class Ticket {
 	@Column(name = "attachment")
 	private String attachment;
 
-	@Column(name = "assignee_id")
-	private Integer assignee_id;
+
 
 	public Integer getTicketId() {
 		return ticketId;
@@ -91,13 +90,4 @@ public class Ticket {
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-
-	public Integer getAssignee_id() {
-		return assignee_id;
-	}
-
-	public void setAssignee_id(Integer assignee_id) {
-		this.assignee_id = assignee_id;
-	}
-
 }

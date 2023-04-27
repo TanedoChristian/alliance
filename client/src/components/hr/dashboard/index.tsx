@@ -9,21 +9,48 @@ const DashBoardHr = (props: any) => {
   const [tickets, setTickets]: any = useState([]);
   const [ticket, setTicket]: any = useState({});
   const [isOpenModal, setOpenModal] = useState(false);
-
+  const [success, setSuccess] = useState(false);
   useEffect(() => {
     axios
-      .get(`${Setup.SERVER_URL()}/ticket/gettable`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
-        },
-      })
+      .get(
+        `${Setup.SERVER_URL()}/ticket/assignee/${localStorage.getItem(
+          "employee_id"
+        )}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
+        }
+      )
       .then(({ data }) => {
+        console.log(data.data);
         setTickets(data.data);
       });
-  }, []);
+  }, [success]);
 
   const handleClose = () => {
     setOpenModal(false);
+  };
+
+  const handleChange = (e: any) => {
+    const { name, value } = e.target;
+    setTicket((prev: any) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const handleUpdate = (ticket: any) => {
+    axios({
+      method: "PUT",
+      url: `http://localhost:8080/spring-hibernate-jpa/ticket/update-status/${ticket.ticketId}`,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      data: { ...ticket },
+    }).then((data) => {
+      setSuccess(!success);
+      setOpenModal(false);
+    });
   };
 
   return (
@@ -61,14 +88,7 @@ const DashBoardHr = (props: any) => {
                 type="text"
                 placeholder="Last Name"
                 className="p-2 bg-gray-200 rounded-md"
-                defaultValue={new Date(ticket.date_issued).toLocaleDateString(
-                  "en-US",
-                  {
-                    month: "long",
-                    day: "2-digit",
-                    year: "numeric",
-                  }
-                )}
+                defaultValue={ticket.date_issued}
               />
             </div>
 
@@ -83,20 +103,22 @@ const DashBoardHr = (props: any) => {
 
             <div className="flex gap-2 items-center justify-between">
               <label>Status: </label>
-              <select className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block py-2.5 w-[60%] ">
-                <option selected value="1">
-                  {ticket.status}
-                </option>
-                <option value="1">Benefits</option>
-                <option value="2">Payroll</option>
-                <option value="3">MEMO</option>
-                <option value="4">Request</option>
+              <select
+                className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block py-2.5 w-[60%] "
+                onChange={handleChange}
+                name="status"
+              >
+                <option selected>Select Status</option>
+                <option value={1}>Pending</option>
+                <option value={2}>On Going</option>
+                <option value={3}>Done</option>
+                <option value={4}>Cancel</option>
               </select>
             </div>
 
             <div className="flex gap-5 items-center mt-10">
               <label>Requested By: </label>
-              <h1>{ticket.employee_id}</h1>
+              <h1>{ticket.requested_by}</h1>
             </div>
 
             <div className="flex gap-2 items-center mt-10">
@@ -105,7 +127,7 @@ const DashBoardHr = (props: any) => {
               </label>
 
               <a
-                href={`${Setup.SERVER_URL()}/image/${ticket.attachment}`}
+                href={`${Setup.SERVER_URL()}/file/${ticket.attachment}`}
                 target="_blank"
                 className="text-blue-500 lowercase"
               >
@@ -119,7 +141,12 @@ const DashBoardHr = (props: any) => {
               >
                 Cancel
               </button>
-              <button className="bg-red-500 text-white p-3 rounded-md">
+              <button
+                className="bg-red-500 text-white p-3 rounded-md"
+                onClick={() => {
+                  handleUpdate(ticket);
+                }}
+              >
                 Save Changes
               </button>
             </div>
@@ -202,7 +229,7 @@ const DashBoardHr = (props: any) => {
                     {item.status}
                   </td>
                   <td className="border-t-0 px-6 align-middle  border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left  overflow-hidden text-ellipsis">
-                    {item.assign_to}
+                    {item.requested_by}
                   </td>
                   <td className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-red-500 flex gap-2 ">
                     <button

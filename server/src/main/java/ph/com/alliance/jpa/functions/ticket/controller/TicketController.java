@@ -59,6 +59,11 @@ public class TicketController{
 		return ApiResult.CreateSuccess(ticketservice.getAllFromTable());
 	}
 	
+	@GetMapping("/assignee/{assigneeId}")
+	public ApiResult getTicketByAssignee(@PathVariable Integer assigneeId) {
+		return ApiResult.CreateSuccess(ticketservice.getTicketByAssignee(assigneeId));
+	}
+	
 
 
 	

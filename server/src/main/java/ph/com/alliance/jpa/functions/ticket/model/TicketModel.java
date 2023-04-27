@@ -10,7 +10,7 @@ public class TicketModel {
 	private String category;
 	private Integer employee_id;
 	private String date_issued;
-	private Integer assignee_id;
+
 	private String attachment;
 	
 	
@@ -20,12 +20,7 @@ public class TicketModel {
 	public void setAttachment(String attachment) {
 		this.attachment = attachment;
 	}
-	public Integer getAssignee_id() {
-		return assignee_id;
-	}
-	public void setAssignee_id(Integer assignee_id) {
-		this.assignee_id = assignee_id;
-	}
+
 	public Integer getEmployee_id() {
 		return employee_id;
 	}

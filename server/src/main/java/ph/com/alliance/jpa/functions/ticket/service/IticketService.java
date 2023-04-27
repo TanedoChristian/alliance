@@ -20,6 +20,7 @@ public interface IticketService  {
 	Object findTicket(Integer ticketId);
 	List<Ticket> findbyStatus(String status);
 	List<Map<String, Object>>getAllFromTable();
+	List<Map<String, Object>>getTicketByAssignee(Integer id);
 	void deleteTickets(List<Integer> tickets);
 
 }

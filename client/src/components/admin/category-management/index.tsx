@@ -65,6 +65,19 @@ const CategoryManagement = () => {
     });
   };
 
+  const deleteTicket = (id: any) => {
+    console.log(id);
+    axios({
+      method: "delete",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+      },
+      url: `http://localhost:8080/spring-hibernate-jpa/category/delete/${id}`,
+    }).then((data) => {
+      setSuccess(!success);
+    });
+  };
+
   return (
     <div className="w-full h-screen overflow-hidden">
       <Header />
@@ -114,12 +127,15 @@ const CategoryManagement = () => {
                       onClick={() => {
                         setShowUpdateModal(true);
                         setUpdateData(item);
-                        console.log(item);
                       }}
                     >
                       <i className="fa-solid fa-pen"></i>
                     </button>
-                    <button>
+                    <button
+                      onClick={() => {
+                        deleteTicket(item.categoryId);
+                      }}
+                    >
                       <i className="fa-solid fa-trash"></i>
                     </button>
                   </td>

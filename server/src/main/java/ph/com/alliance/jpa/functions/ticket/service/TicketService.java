@@ -140,6 +140,11 @@ public class TicketService implements IticketService {
 		return ticketDao.getAllFromTable();
 	}
 
+	@Override
+	public List<Map<String, Object>> getTicketByAssignee(Integer id) {
+		return ticketDao.getTicketsByAssignee(id);
+	}
+
 	
 
 

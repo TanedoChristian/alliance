@@ -282,7 +282,7 @@ const AccountSettings = () => {
 
             <div className="flex w-full  h-screen">
               <div className="w-[40%] flex  items-center flex-col">
-                <div className="w-[50%] h-[50%]">
+                <div className="w-[50%]">
                   <img
                     src={
                       user.img == null

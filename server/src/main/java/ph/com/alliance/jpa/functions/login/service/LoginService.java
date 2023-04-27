@@ -55,7 +55,9 @@ public class LoginService implements ILoginService, UserDetailsService, TokenEnh
         additionalInfo.put("username", employeeModel.getUsername());
         additionalInfo.put("employee_id", employeeModel.getEmployeeId());
         additionalInfo.put("type", employeeModel.getType());
-        additionalInfo.put("authorities", user.getAuthorities());
+        additionalInfo.put("authorities", user.getAuthorities());    
+        additionalInfo.put("test", employeeModel);
+        
         
 
         ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);
