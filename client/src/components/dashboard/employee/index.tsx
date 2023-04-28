@@ -32,7 +32,17 @@ const EmployeeDashBoard = () => {
   };
 
   const onChangeFile = (e: any) => {
-    setFile(e.target.files[0]);
+    const fileName: any = e.target.files[0]?.name;
+    const fileExtension: any = fileName.substring(fileName.lastIndexOf(".") + 1);
+    const supportedTypes = ['jpg', 'png', 'jpeg', 'pdf'];
+
+    console.log(fileExtension)
+
+    if(supportedTypes.includes(fileExtension)) {
+      setFile(e.target.files[0]);
+    } else {
+      alert(`File type ".${fileExtension}" is not supported.`);
+    }
   };
 
   const submitTicket = () => {
