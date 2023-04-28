@@ -47,7 +47,11 @@ const Dashboard = () => {
   const [ticketCount, setTicketCount]: any = useState([]);
 
   useEffect(() => {
-    axios.get(`${Setup.SERVER_URL()}/ticket/count`).then(({ data }) => {
+    axios.get(`${Setup.SERVER_URL()}/ticket/count`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("access_token")}`
+      }
+    }).then(({ data }) => {
       setTicketCount(data.data);
 
       ticketCount.map((item: any) => {
