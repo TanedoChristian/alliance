@@ -51,8 +51,7 @@ public class MailSender  {
         		}
         	}    
         	
-        	messageHelper.setFrom(mailModel.getMailFrom());
-        	        	
+        	messageHelper.setFrom(mailModel.getMailFrom());        	
         	messageHelper.setSubject(mailModel.getMailSubject());
         	
             Context context = new Context();

@@ -16,6 +16,35 @@ const DashBoardHr = (props: any) => {
     setShowGenerateModal(false);
   };
 
+  const handleGenerate = () => {
+    console.log(ticket);
+
+    if (ticket.date_start && ticket.date_ended) {
+      axios({
+        method: "POST",
+        url: `http://localhost:8080/spring-hibernate-jpa/file/export-csv`,
+        data: {
+          start: ticket.date_start,
+          end: ticket.date_ended,
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        responseType: "blob",
+      }).then((response) => {
+        const blobUrl = URL.createObjectURL(new Blob([response.data]));
+        const downloadLink = document.createElement("a");
+        downloadLink.href = blobUrl;
+        downloadLink.download = "ticket.csv";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      });
+    } else {
+      window.open("http://localhost:8080/spring-hibernate-jpa/file/export-csv");
+    }
+  };
+
   useEffect(() => {
     axios
       .get(
@@ -310,6 +339,11 @@ const DashBoardHr = (props: any) => {
               <input
                 type="date"
                 className="border border-gray-600 py-1 px-2 rounded-md"
+                onChange={(e) => {
+                  setTicket((prev: any) => {
+                    return { ...prev, date_start: e.target.value };
+                  });
+                }}
               />
             </div>
 
@@ -318,12 +352,20 @@ const DashBoardHr = (props: any) => {
               <input
                 type="date"
                 className="border border-gray-600 py-1 px-2 rounded-md"
+                onChange={(e) => {
+                  setTicket((prev: any) => {
+                    return { ...prev, date_ended: e.target.value };
+                  });
+                }}
               />
             </div>
           </div>
 
           <div className="flex gap-2 justify-center mt-auto">
-            <button className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium">
+            <button
+              className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+              onClick={handleGenerate}
+            >
               Generate
             </button>
             <button

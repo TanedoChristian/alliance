@@ -20,7 +20,9 @@ public interface IticketService  {
 	Object findTicket(Integer ticketId);
 	List<Ticket> findbyStatus(String status);
 	List<Map<String, Object>>getAllFromTable();
+	List<Map<String, Object>>getTicketCount();
 	List<Map<String, Object>>getTicketByAssignee(Integer id);
+	Object getTicketByDateRange(String date, String date2);
 	void deleteTickets(List<Integer> tickets);
 
 }

@@ -2,6 +2,7 @@ package ph.com.alliance.jpa.functions.file.service;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.http.HttpServlet;
@@ -14,14 +15,15 @@ import com.itextpdf.text.DocumentException;
 
 public interface FileService {
 
-    String downloadCsv(List<List<String>> items) throws IOException;
+	String downloadCsv(List<List<String>> items) throws IOException;
 
-    String downloadXls(List<List<String>> items) throws Exception;
+	String downloadXls(List<List<String>> items) throws Exception;
 
-    String downloadPdf(List<List<String>> items) throws FileNotFoundException, DocumentException;
- 
-    Object uploadFile(MultipartFile file);
-   
-    ResponseEntity<byte []> download(String filename) throws IOException;
+	String downloadPdf(List<List<String>> items) throws FileNotFoundException, DocumentException;
 
+	Object uploadFile(MultipartFile file);
+
+	ResponseEntity<byte[]> download(String filename) throws IOException;
+	
+	void exportIntoCsv(PrintWriter printWriter) throws IOException;
 }

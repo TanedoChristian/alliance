@@ -1,22 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Setup from "../../Setup";
+import axios from "axios";
 
-const TicketStatus = () => {
+const TicketStatus = (props: any) => {
+  useEffect(() => {
+    console.log(props.data);
+  });
+
   return (
     <ul className="w-[50%] flex gap-3 justify-end ">
       <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
         <i className="fa-regular fa-clock text-xs"></i>
-        12 Pending Tickets
+        {props.data.pending} Pending Tickets
       </li>
 
       <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
         <i className="fa-solid fa-rotate text-xs"></i>
-        98 Ongoing Tickets
+        {props.data.onGoing} Ongoing Tickets
       </li>
       <li className="p-2 py-3 flex items-center bg-gray-700 text-white rounded-lg text-xs gap-2">
-        <i className="fa-solid fa-circle-check text-xs"></i>6 Resolved Tickets
+        <i className="fa-solid fa-circle-check text-xs"></i>
+        {props.data.done} Resolved Tickets
       </li>
       <li className="p-2 py-3 flex items-center bg-red-500 text-white rounded-lg text-xs gap-2">
-        <i className="fa-solid fa-circle-xmark text-xs"></i>8 Cancelled Tickets
+        <i className="fa-solid fa-circle-xmark text-xs"></i>
+        {props.data.cancel} Cancelled Tickets
       </li>
     </ul>
   );

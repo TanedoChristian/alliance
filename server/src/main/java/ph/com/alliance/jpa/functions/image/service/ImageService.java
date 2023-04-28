@@ -20,7 +20,6 @@ class ImageService implements IImageService{
 	@Override
 	public ResponseEntity<byte[]> get(String fileName) throws IOException {
 		// TODO Auto-generated method stub
-		
 		String basePath = "C:/serverFiles/sampleuploads/"+ fileName;
 		File directory = new File(basePath);
 		InputStream in = new FileInputStream(directory);

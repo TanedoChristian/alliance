@@ -46,7 +46,10 @@ public class TicketController{
 	@Autowired
 	EmailService emailService;
 	
-	
+	@PostMapping("/getdate")
+	public ApiResult getDateByRange(String date, String date2) {
+		return ApiResult.CreateSuccess(ticketservice.getTicketByDateRange(date, date2));
+	}
 	
 	@GetMapping("/getall")
 	public Object getAllTickets() {
@@ -62,6 +65,11 @@ public class TicketController{
 	@GetMapping("/assignee/{assigneeId}")
 	public ApiResult getTicketByAssignee(@PathVariable Integer assigneeId) {
 		return ApiResult.CreateSuccess(ticketservice.getTicketByAssignee(assigneeId));
+	}
+	
+	@GetMapping("/count")
+	public ApiResult getTicketCount() {
+		return ApiResult.CreateSuccess(ticketservice.getTicketCount());
 	}
 	
 

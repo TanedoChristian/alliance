@@ -9,6 +9,7 @@ import Modal from "../../modal";
 import Table from "../../table";
 import SideNav from "../../sidenav";
 import TicketStatus from "../../ticket-status";
+import Setup from "../../../Setup";
 
 const Dashboard = () => {
   const [ticket, setTicket] = useState([]);
@@ -35,6 +36,47 @@ const Dashboard = () => {
   const handleCloseUpdateModal = () => {
     setUpdateModalOpen(false);
   };
+
+  const [ticketStatus, setTicketStatus] = useState({
+    pending: 0,
+    onGoing: 0,
+    done: 0,
+    cancel: 0,
+  });
+
+  const [ticketCount, setTicketCount]: any = useState([]);
+
+  useEffect(() => {
+    axios.get(`${Setup.SERVER_URL()}/ticket/count`).then(({ data }) => {
+      setTicketCount(data.data);
+
+      ticketCount.map((item: any) => {
+        if (item.status == 1) {
+          setTicketStatus((prev) => {
+            return { ...prev, pending: item.ticket_count };
+          });
+        }
+
+        if (item.status == 2) {
+          setTicketStatus((prev) => {
+            return { ...prev, onGoing: item.ticket_count };
+          });
+        }
+
+        if (item.status == 3) {
+          setTicketStatus((prev) => {
+            return { ...prev, done: item.ticket_count };
+          });
+        }
+
+        if (item.status == 4) {
+          setTicketStatus((prev) => {
+            return { ...prev, cancel: item.ticket_count };
+          });
+        }
+      });
+    });
+  }, []);
 
   return (
     <div className="flex  h-screen w-full overflow-hidden ">
@@ -415,7 +457,7 @@ const Dashboard = () => {
             <div className="w-[95%] flex flex-col  gap-3     h-[90%] rounded-xl bg-white shadow-xl border border-gray-200 ">
               <div className="flex  w-full p-3 justify-between px-5 items-center ">
                 <h1 className="text-3xl font-bold">Tickets </h1>
-                <TicketStatus />
+                <TicketStatus data={ticketStatus} />
               </div>
               <Category
                 showOptions={false}

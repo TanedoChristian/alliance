@@ -15,6 +15,8 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
 import ph.com.alliance.jpa.functions.email.service.EmailService;
+import ph.com.alliance.jpa.functions.employee.dao.IEmployeeDao;
+import ph.com.alliance.jpa.functions.employee.model.EmployeeModel;
 import ph.com.alliance.jpa.functions.file.service.FileService;
 import ph.com.alliance.jpa.functions.ticket.dao.ITicketDao;
 import ph.com.alliance.jpa.functions.ticket.model.Ticket;
@@ -27,6 +29,9 @@ public class TicketService implements IticketService {
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired 
+	IEmployeeDao employeeDao;
 	
 	@Autowired
 	EmailService emailService;
@@ -44,14 +49,8 @@ public class TicketService implements IticketService {
 			BeanUtils.copyProperties(ticket, ticketModel);
 			ticket.setTicketId(ticketId);
 			ticketDao.saveAndFlush(ticket);
+			
 			SampleEmailModel mailModel = new SampleEmailModel();
-			
-			//find email by id
-			// userDao.findEmilById
-			// @Query(select email from user where id =:email)
-			// findEmail(String email) -> ticketModel.getassignee_id
-			// jgerzon@asi-dev1.com
-			
 			mailModel.setSignature("jgerzon@asi-dev1.com");
 			mailModel.setEmail("tanedochristian1@gmail.com");
 			mailModel.setName("cj");
@@ -73,6 +72,18 @@ public class TicketService implements IticketService {
 	public void createTicket(TicketModel ticketmodel, MultipartFile file) {
 		
 		try {
+			
+			EmployeeModel employeeModel = employeeDao.findEmployeeByCategoryId(ticketmodel.getCategory());
+			
+			SampleEmailModel emailModel = new SampleEmailModel();
+			emailModel.setName(employeeModel.getFirstname());
+			emailModel.setEmail(employeeModel.getEmail());
+			emailModel.setSignature(String.valueOf(ticketmodel.getTicketId()));
+			
+			emailService.sendMail(emailModel);
+			
+			
+			
 			Ticket ticket = new Ticket();
 			ticketmodel.setAttachment(file.getOriginalFilename());
 			ticket.setTicketId(null);
@@ -120,8 +131,7 @@ public class TicketService implements IticketService {
 	public void updateTicketStatus(Integer ticketId, TicketModel ticketModel) {
 		// TODO Auto-generated method stub
 		try {
-			Ticket ticket = ticketDao.findById(ticketId).orElse(null);
-			
+			Ticket ticket = ticketDao.findById(ticketId).orElse(null);		
 			ticket.setTicketId(ticketId);
 			ticket.setStatus(ticketModel.getStatus());
 			ticketDao.saveAndFlush(ticket);
@@ -143,6 +153,16 @@ public class TicketService implements IticketService {
 	@Override
 	public List<Map<String, Object>> getTicketByAssignee(Integer id) {
 		return ticketDao.getTicketsByAssignee(id);
+	}
+
+	@Override
+	public List<Map<String, Object>> getTicketCount() {
+		return ticketDao.getTicketCount();
+	}
+
+	@Override
+	public Object getTicketByDateRange(String date, String date2) {
+		return ticketDao.getTicketByDate(date, date2);
 	}
 
 	

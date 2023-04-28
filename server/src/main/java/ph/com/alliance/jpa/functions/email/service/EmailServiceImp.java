@@ -37,7 +37,7 @@ public class EmailServiceImp implements EmailService {
         
         mail.setMailVariables(mailMap);
         mail.setMailFrom(mailFrom);
-        mail.setMailSubject("[SampleEmail] Subject");
+        mail.setMailSubject("New Ticket");
         
         
         List<String> mailTo = new ArrayList<String>();
@@ -47,13 +47,10 @@ public class EmailServiceImp implements EmailService {
         mailTo.add(input.getEmail());
         mail.setMailTo(mailTo);
         
-        
         List<String> mailCC = new ArrayList<String>();
         mailCC.add("tanedochristian1@gmail.com");
         mail.setMailCC(mailCC);
         mail.setMailTemplate("SampleEmailTemplate");
-        
-   
         try {
             rabbitTemplate.convertAndSend(exchange, "spring.rabbit.mail", mail);
         } catch (AmqpException e) {
