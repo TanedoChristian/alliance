@@ -21,5 +21,5 @@ public interface IEmployeeService {
 	 
 	 Object getById(Integer id);
 	 Object getAllAdmin();
-	 void sendOtp(String email);
+	 Object sendOtp(String email);
 }

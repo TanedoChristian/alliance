@@ -2,12 +2,14 @@ package ph.com.alliance.jpa.functions.employee.service;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.protobuf.StringValue;
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import ph.com.alliance.jpa.common.MailModel;
@@ -161,11 +163,15 @@ public class EmployeeService implements IEmployeeService{
 
 
 	@Override
-	public void sendOtp(String email) {
+	public Object sendOtp(String email) {
+		
+		int data = 4572;
 		SampleEmailModel emailModel = new SampleEmailModel();
 		emailModel.setEmail(email);
-		emailModel.setSignature("4572");
+		emailModel.setSignature(String.valueOf(data));
 		emailService.changePasswordMail(emailModel);
+		
+		return data;
 
 	}
 

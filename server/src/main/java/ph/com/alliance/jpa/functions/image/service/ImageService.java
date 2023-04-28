@@ -13,20 +13,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.beans.Beans;
 
-
 @Service
-class ImageService implements IImageService{
+class ImageService implements IImageService {
 
 	@Override
 	public ResponseEntity<byte[]> get(String fileName) throws IOException {
 		// TODO Auto-generated method stub
-		String basePath = "C:/serverFiles/sampleuploads/"+ fileName;
+		String basePath = "C:/serverFiles/sampleuploads/" + fileName;
 		File directory = new File(basePath);
 		InputStream in = new FileInputStream(directory);
 		final HttpHeaders headers = new HttpHeaders();
-	    headers.setContentType(MediaType.IMAGE_JPEG);
-	    return new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.OK); 
-		
+		headers.setContentType(MediaType.IMAGE_JPEG);
+		return new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.OK);
+
 	}
-	
+
 }

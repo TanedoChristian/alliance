@@ -19,11 +19,12 @@ const ForgotPassword = () => {
         Authorization: `Bearer ${localStorage.getItem("access_token")}`,
         "Content-Type": "multipart/form-data",
       },
-
       data: {
         email: employeeData.email,
       },
     }).then((data) => {
+      console.log(data);
+      localStorage.setItem("otp", data.data);
       setOpenModal(true);
     });
     setOpenModal(true);
@@ -37,9 +38,10 @@ const ForgotPassword = () => {
   };
 
   const verifyOtp = () => {
-    if (employeeData.otp == "4572") {
+    if (employeeData.otp == localStorage.getItem("otp")) {
       setOpenModal(false);
       setOpenModalSubmitOtp(true);
+      setError(false);
     } else {
       setError(true);
     }
@@ -76,7 +78,7 @@ const ForgotPassword = () => {
         handleClose={() => {
           setOpenModalSubmitOtp(false);
         }}
-        height="h-[50%]"
+        height="h-[80%]"
         width="w-[40%]"
         title="Verify OTP"
       >

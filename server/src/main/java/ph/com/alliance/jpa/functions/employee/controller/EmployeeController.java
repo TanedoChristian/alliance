@@ -42,8 +42,8 @@ public class EmployeeController{
 	}
 	
 	@PostMapping("/sendotp")
-	public void sendOtp(String email) {
-		service.sendOtp(email);
+	public Object sendOtp(String email) {
+		return service.sendOtp(email);
 	}
 	
 	@GetMapping("/get/{id}")
@@ -81,7 +81,7 @@ public class EmployeeController{
 	
 	@PutMapping("/forgot-password")
 	public ApiResult forgotPassword(String email, String password) {
-		
+
 		service.forgotPassword(email, password);
 		return ApiResult.CreateSuccess("Successfully Updated!");
 		
