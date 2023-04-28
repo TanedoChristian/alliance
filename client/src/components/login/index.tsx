@@ -53,7 +53,9 @@ const Login = () => {
             />
           </div>
 
-          <p className="text-sm text-blue-600">Forgot Password?</p>
+          <a href="/forgotpassword">
+            <p className="text-sm text-blue-600">Forgot Password?</p>
+          </a>
 
           <button
             className="p-2 test text-lg text-white bg-red-500 shadow-xl rounded"

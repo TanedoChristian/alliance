@@ -5,5 +5,6 @@ import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
 public interface EmailService  {
 
     void sendMail(SampleEmailModel arg0);
+    void changePasswordMail(SampleEmailModel arg0);
 
 }

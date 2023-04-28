@@ -17,5 +17,5 @@ public interface IEmployeeService {
 	 void updatePassword(Integer id, String oldPassword, String newPassword);
 	 Object getById(Integer id);
 	 Object getAllAdmin();
-
+	 void sendOtp(String email);
 }

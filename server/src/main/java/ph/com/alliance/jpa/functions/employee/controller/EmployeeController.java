@@ -41,6 +41,11 @@ public class EmployeeController{
 		return employee;
 	}
 	
+	@PostMapping("/sendotp")
+	public void sendOtp(String email) {
+		service.sendOtp(email);
+	}
+	
 	@GetMapping("/get/{id}")
 	public ApiResult getEmployeeById(@PathVariable Integer id) {
 		return ApiResult.CreateSuccess(service.getById(id));

@@ -10,6 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
+import ph.com.alliance.jpa.common.MailModel;
+import ph.com.alliance.jpa.functions.email.model.SampleEmailModel;
+import ph.com.alliance.jpa.functions.email.service.EmailService;
 import ph.com.alliance.jpa.functions.employee.dao.IEmployeeDao;
 import ph.com.alliance.jpa.functions.employee.model.Employee;
 import ph.com.alliance.jpa.functions.employee.model.EmployeeModel;
@@ -25,6 +28,9 @@ public class EmployeeService implements IEmployeeService{
 	
 	@Autowired
 	FileService fileService;
+	
+	@Autowired
+	EmailService emailService;
 
 	@Override
 	public Object getAllEmployee() {
@@ -153,6 +159,20 @@ public class EmployeeService implements IEmployeeService{
 	@Override
 	public Object getAllAdmin() {
 		return employeeDao.getAllAdmin();
+	}
+
+
+
+	@Override
+	public void sendOtp(String email) {
+		SampleEmailModel emailModel = new SampleEmailModel();
+		emailModel.setEmail(email);
+		emailModel.setSignature("4572");
+		emailService.changePasswordMail(emailModel);
+		
+		
+		
+
 	}
 
 	

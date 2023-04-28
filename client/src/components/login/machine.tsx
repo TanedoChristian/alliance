@@ -6,7 +6,6 @@ import Setup from "../../Setup";
 import { error } from "console";
 const testMachine = createMachine(
   {
-    /** @xstate-layout N4IgpgJg5mDOIC5QBc7IHQEsIBswGIB5AOQH0BlAVQCEBZASQBUBtABgF1FQAHAe1kzJMvAHZcQAD0QAWAEwAaEAE9EADgCM6aata6AzHoCsANgCcB4wF9rikbwhxxqWMnF8BQ0eKkIAtMcUVPytLRWcMbDw3fkFhMSRJRENDdGNWQ30jMwNDU2lAxHVVWXQAdlLTSvV1aUrWWT1pa2sgA */
     id: "test",
     initial: "idle",
     context: {

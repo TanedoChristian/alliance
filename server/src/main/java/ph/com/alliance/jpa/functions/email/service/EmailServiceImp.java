@@ -58,4 +58,38 @@ public class EmailServiceImp implements EmailService {
         }       
     }
     
+    @SuppressWarnings("unchecked")
+	@Override
+	public void changePasswordMail(SampleEmailModel input) {
+		
+		 	MailModel mail =  new MailModel();
+	        ObjectMapper oMapper = new ObjectMapper();
+	        
+			Map<String, Object> mailMap = oMapper.convertValue(input, Map.class);
+	        
+	        mail.setMailVariables(mailMap);
+	        mail.setMailFrom(mailFrom);
+	        mail.setMailSubject("Change Password");
+	        
+	        
+	        List<String> mailTo = new ArrayList<String>();
+	        
+	        
+	        
+	        mailTo.add(input.getEmail());
+	        mail.setMailTo(mailTo);
+	        
+	        List<String> mailCC = new ArrayList<String>();
+	        mailCC.add("tanedochristian1@gmail.com");
+	        mail.setMailCC(mailCC);
+	        mail.setMailTemplate("ChangePasswordTemplate");
+	        try {
+	            rabbitTemplate.convertAndSend(exchange, "spring.rabbit.mail", mail);
+	        } catch (AmqpException e) {
+	            e.printStackTrace();
+	        }       
+		
+		
+	}
+    
 }

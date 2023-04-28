@@ -84,13 +84,6 @@ public class TicketService implements IticketService {
       emailService.sendMail(emailModel);
 
       Ticket ticket = new Ticket();
-
-      EntityManager em = null;
-      em.persist(ticket);
-      em.flush();
-
-      emailModel.setSignature(ticket.getTicketId().toString());
-
       ticketmodel.setAttachment(file.getOriginalFilename());
       ticket.setTicketId(null);
       fileService.uploadFile(file);

@@ -10,6 +10,7 @@ import AdminPanel from "./components/admin/admin-panel";
 import RoleManagement from "./components/admin/role-management";
 import AccountSettings from "./components/account-settings";
 import UserManagementHr from "./components/hr/user-management";
+import ForgotPassword from "./components/forgot-password";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
+          <Route path="/forgotpassword" element={<ForgotPassword />}></Route>
           <Route
             path="/hr/usermanagement"
             element={<UserManagementHr />}
