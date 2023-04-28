@@ -79,6 +79,15 @@ public class EmployeeController{
 	}
 	
 	
+	@PutMapping("/forgot-password")
+	public ApiResult forgotPassword(String email, String password) {
+		
+		service.forgotPassword(email, password);
+		return ApiResult.CreateSuccess("Successfully Updated!");
+		
+	}
+	
+	
 	@PostMapping("/employee-login")
 	public ApiResult findUsername(@RequestBody Employee employee) {
 		service.findEmployee(employee.getUsername(), employee.getPassword());

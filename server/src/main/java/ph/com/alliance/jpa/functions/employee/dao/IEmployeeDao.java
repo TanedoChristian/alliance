@@ -23,6 +23,9 @@ public interface IEmployeeDao extends JpaRepository<EmployeeModel, Integer>{
 	@Query(value = "SELECT * from employee inner join category on category.employeeid = employee.employeeId where categoryId = :id", nativeQuery = true)
 	EmployeeModel findEmployeeByCategoryId(@Param(value="id") String string);
 	
+	@Query(value = "SELECT * from employee where email =:email", nativeQuery = true)
+	EmployeeModel findByEmail(@Param(value="email") String string);
+	
 
 }
   

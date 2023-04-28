@@ -9,6 +9,7 @@ const ForgotPassword = () => {
 
   const [employeeData, setEmployeeData]: any = useState({});
   const [isOpen, setOpenModal] = useState(false);
+  const [isOpenSubmitOtp, setOpenModalSubmitOtp] = useState(false);
 
   const handleSubmit = () => {
     axios({
@@ -25,12 +26,103 @@ const ForgotPassword = () => {
     }).then((data) => {
       setOpenModal(true);
     });
+    setOpenModal(true);
   };
 
-  const onChange = () => {};
+  const onChange = (e: any) => {
+    const { name, value } = e.target;
+    setEmployeeData((prev: any) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  const verifyOtp = () => {
+    if (employeeData.otp == "4572") {
+      setOpenModal(false);
+      setOpenModalSubmitOtp(true);
+    } else {
+      setError(true);
+    }
+  };
+
+  const changePassword = () => {
+    console.log(employeeData);
+
+    if (employeeData.newpassword == employeeData.confirmpassword) {
+      axios({
+        method: "PUT",
+        url: `${Setup.SERVER_URL()}/employee/forgot-password`,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          "Content-Type": "multipart/form-data",
+        },
+        data: {
+          email: employeeData.email,
+          password: employeeData.newpassword,
+        },
+      }).then((data) => {
+        alert("Updated Successfully");
+        window.location.href = "/login";
+      });
+    } else {
+      setError(true);
+    }
+  };
 
   return (
     <div className="flex h-screen w-full">
+      <Modal
+        isOpen={isOpenSubmitOtp}
+        handleClose={() => {
+          setOpenModalSubmitOtp(false);
+        }}
+        height="h-[50%]"
+        width="w-[40%]"
+        title="Verify OTP"
+      >
+        <div className="w-[100%] flex  flex-col">
+          <div className="w-full bg-white flex p-10 justify-center">
+            <div className="flex flex-col  gap-5 ">
+              <p className="text-red-500 text-center">
+                {error ? "Password Not Match" : ""}
+              </p>
+              <div className="flex flex-col gap-1  justify-between">
+                <label className="font-bold text-slate-700">New Password</label>
+                <input
+                  type="password"
+                  placeholder="New Password"
+                  name="newpassword"
+                  className="p-2 bg-gray-100 rounded-md"
+                  onChange={onChange}
+                />
+              </div>
+
+              <div className="flex flex-col gap-1  justify-between">
+                <label className="font-bold text-slate-700">
+                  Confirm Password
+                </label>
+                <input
+                  type="password"
+                  placeholder="Confirm Password"
+                  name="confirmpassword"
+                  className="p-2 bg-gray-100 rounded-md"
+                  onChange={onChange}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex w-full justify-center">
+            <button
+              className="bg-red-600 text-white font-bold  rounded-md shadow-xl p-3 w-[40%] font-sans"
+              onClick={changePassword}
+            >
+              Change Password
+            </button>
+          </div>
+        </div>
+      </Modal>
+
       <Modal
         isOpen={isOpen}
         handleClose={() => {
@@ -38,6 +130,7 @@ const ForgotPassword = () => {
         }}
         height="h-[40%]"
         width="w-[40%]"
+        title="Verify OTP"
       >
         <div className="w-[100%] flex  flex-col">
           <div className="w-full bg-white flex p-10 justify-center">
@@ -47,15 +140,21 @@ const ForgotPassword = () => {
                 <input
                   type="text"
                   placeholder="Otp"
+                  name="otp"
                   className="p-2 bg-gray-100 rounded-md"
-                  name="firstname"
                   onChange={onChange}
                 />
               </div>
+              <p className="text-red-500 text-center">
+                {error ? "Invalid Otp" : ""}
+              </p>
             </div>
           </div>
           <div className="flex w-full justify-center">
-            <button className="bg-red-600 text-white font-bold  rounded-md shadow-xl p-3 w-[40%] font-sans">
+            <button
+              className="bg-red-600 text-white font-bold  rounded-md shadow-xl p-3 w-[40%] font-sans"
+              onClick={verifyOtp}
+            >
               Verify
             </button>
           </div>

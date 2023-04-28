@@ -15,6 +15,10 @@ public interface IEmployeeService {
 	 void deleteEmployee(Integer id);
 	 void updateEmployee(Integer id, Employee employee, MultipartFile file);
 	 void updatePassword(Integer id, String oldPassword, String newPassword);
+	 
+	 
+	 void forgotPassword(String email, String newPassword);
+	 
 	 Object getById(Integer id);
 	 Object getAllAdmin();
 	 void sendOtp(String email);

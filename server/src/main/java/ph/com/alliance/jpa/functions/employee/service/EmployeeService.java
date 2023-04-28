@@ -143,10 +143,7 @@ public class EmployeeService implements IEmployeeService{
 				employeeModel.setPassword(newPassword);
 				employeeDao.saveAndFlush(employeeModel);
 			}
-			
-			
-			
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -169,10 +166,26 @@ public class EmployeeService implements IEmployeeService{
 		emailModel.setEmail(email);
 		emailModel.setSignature("4572");
 		emailService.changePasswordMail(emailModel);
-		
-		
-		
 
+	}
+
+
+
+	@Override
+	public void forgotPassword(String email, String newPassword) {
+		
+		try {
+			EmployeeModel employeeModel = employeeDao.findByEmail(email);
+			employeeModel.setPassword(newPassword);
+			employeeDao.saveAndFlush(employeeModel);
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	
