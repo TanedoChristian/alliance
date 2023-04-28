@@ -28,6 +28,7 @@ const DashBoardHr = (props: any) => {
           end: ticket.date_ended,
         },
         headers: {
+          "Authorization": `Bearer ${localStorage.getItem("access_token")}`,
           "Content-Type": "multipart/form-data",
         },
         responseType: "blob",
