@@ -20,9 +20,11 @@ public class Category {
 	private String lastname;
 	@Column(name="category_title")
 	private String categoryTitle;
+	private Integer employeeId;
 	
 	
 	
+
 	public Integer getCategoryId() {
 		return categoryId;
 	}
@@ -46,6 +48,12 @@ public class Category {
 	}
 	public void setCategoryTitle(String categoryTitle) {
 		this.categoryTitle = categoryTitle;
+	}
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 

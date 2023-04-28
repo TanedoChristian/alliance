@@ -42,6 +42,20 @@ public class CategoryService implements ICategoryService {
 		}
 		
 	}
+
+	@Override
+	public void insert(CategoryModel categoryModel) {
+		try {
+			Category category = new Category();
+			category.setCategoryId(null);
+			BeanUtils.copyProperties(category, categoryModel);
+			categoryDao.saveAndFlush(category);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
 	
 	
 	

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,12 @@ public class CategoryController {
 		return categoryService.getAllCategory();
 	}
 	
+	@PostMapping("/insert")
+	public ApiResult  insertCategory(@RequestBody CategoryModel categoryModel) {
+		categoryService.insert(categoryModel);
+		return ApiResult.CreateSuccess(categoryModel);
+	}
+	
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Integer id) {
@@ -36,8 +43,6 @@ public class CategoryController {
 	public ApiResult update(@PathVariable Integer id, @RequestBody CategoryModel category) {
 		categoryService.updateCategory(id, category);
 		return ApiResult.CreateSuccess(category);
-
-		
 	}
 	
 	

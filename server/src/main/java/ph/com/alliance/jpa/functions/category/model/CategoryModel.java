@@ -8,6 +8,7 @@ public class CategoryModel {
 	private String firstname;
 	private String lastname;
 	private String categoryTitle;
+	private Integer employeeId;
 	
 	public Integer getCategoryId() {
 		return categoryId;
@@ -32,6 +33,12 @@ public class CategoryModel {
 	}
 	public void setCategoryTitle(String categoryTitle) {
 		this.categoryTitle = categoryTitle;
+	}
+	public Integer getEmployeeId() {
+		return employeeId;
+	}
+	public void setEmployeeId(Integer employeeId) {
+		this.employeeId = employeeId;
 	}
 	
 }

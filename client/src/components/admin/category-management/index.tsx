@@ -15,7 +15,7 @@ const CategoryManagement = () => {
     categoryTitle: "",
     firstname: "",
     lastname: "",
- }) 
+  });
 
   const [updateData, setUpdateData] = useState({
     categoryId: "",
@@ -25,6 +25,7 @@ const CategoryManagement = () => {
   });
 
   const [employee, setEmployee] = useState([]);
+  const [employeeDataDropDown, setEmployeeData] = useState([]);
 
   const handleCloseAddModal = () => {
     setShowAddModal(false);
@@ -42,8 +43,17 @@ const CategoryManagement = () => {
         },
       })
       .then(({ data }) => {
-        console.log(data);
         setEmployee(data);
+      });
+
+    axios
+      .get(`${Setup.SERVER_URL()}/employee/getall`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+      .then(({ data }) => {
+        setEmployeeData(data);
       });
   }, [success]);
 
@@ -96,6 +106,23 @@ const CategoryManagement = () => {
       url: `http://localhost:8080/spring-hibernate-jpa/category/delete/${id}`,
     }).then((data) => {
       setSuccess(!success);
+    });
+  };
+
+  const handleChangeEmployee = (e: any) => {
+    console.log(e.target.value);
+    console.log(employee);
+    employee.map((item: any) => {
+      if (item.employeeId == e.target.value) {
+        setAddData((prev: any) => {
+          return {
+            ...prev,
+            firstname: item.firstname,
+            lastname: item.lastname,
+            employeeId: item.employeeId,
+          };
+        });
+      }
     });
   };
 
@@ -182,29 +209,35 @@ const CategoryManagement = () => {
                 type="text"
                 placeholder="Category"
                 className="p-2 bg-gray-200 rounded-md"
+                onChange={(e) => {
+                  setAddData((prev) => {
+                    return { ...prev, categoryTitle: e.target.value };
+                  });
+                }}
               />
             </div>
             <div className="flex gap-2 items-center justify-between">
-              <label>First Name: </label>
-              <input
-                type="text"
-                placeholder="First Name"
-                className="p-2 bg-gray-200 rounded-md"
-              />
-            </div>
-            <div className="flex gap-2 items-center justify-between">
-              <label>Last Name: </label>
-              <input
-                type="text"
-                placeholder="Last Name"
-                className="p-2 bg-gray-200 rounded-md"
-              />
+              <label>Assignee: </label>
+              <select
+                className="bg-gray-100 outline-none text-gray-900 text-sm rounded-lg block py-2.5 w-[60%] "
+                onChange={handleChangeEmployee}
+                name="status"
+              >
+                {employeeDataDropDown.map((item: any) => (
+                  <option value={item.employeeId}>
+                    {item.firstname} {item.lastname}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
 
         <div className="flex gap-2 justify-center">
-          <button className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium">
+          <button
+            className="p-3 px-6 rounded-xl bg-red-500 text-white font-medium"
+            onClick={handleAddData}
+          >
             Add
           </button>
           <button

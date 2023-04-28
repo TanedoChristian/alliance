@@ -6,4 +6,5 @@ public interface ICategoryService {
 	Object getAllCategory();
 	void deleteCategory(Integer id);
 	void updateCategory(Integer id, CategoryModel categoryModel);
+	void insert(CategoryModel categoryModel);
 }
