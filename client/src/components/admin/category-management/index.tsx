@@ -111,8 +111,8 @@ const CategoryManagement = () => {
 
   const handleChangeEmployee = (e: any) => {
     console.log(e.target.value);
-    console.log(employee);
-    employee.map((item: any) => {
+
+    employeeDataDropDown.map((item: any) => {
       if (item.employeeId == e.target.value) {
         setAddData((prev: any) => {
           return {
