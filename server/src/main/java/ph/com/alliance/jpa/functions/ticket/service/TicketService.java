@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,19 +74,26 @@ public class TicketService implements IticketService {
 	public void createTicket(TicketModel ticketmodel, MultipartFile file) {
 		
 		try {
-			
+	
 			EmployeeModel employeeModel = employeeDao.findEmployeeByCategoryId(ticketmodel.getCategory());
+			
 			
 			SampleEmailModel emailModel = new SampleEmailModel();
 			emailModel.setName(employeeModel.getFirstname());
 			emailModel.setEmail(employeeModel.getEmail());
-			emailModel.setSignature(String.valueOf(ticketmodel.getTicketId()));
+			emailModel.setSignature(null);
 			
 			emailService.sendMail(emailModel);
 			
 			
 			
+			
 			Ticket ticket = new Ticket();
+			
+
+			
+			
+			
 			ticketmodel.setAttachment(file.getOriginalFilename());
 			ticket.setTicketId(null);
 			fileService.uploadFile(file);

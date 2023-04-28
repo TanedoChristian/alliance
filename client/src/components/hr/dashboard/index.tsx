@@ -39,9 +39,11 @@ const DashBoardHr = (props: any) => {
         document.body.appendChild(downloadLink);
         downloadLink.click();
         document.body.removeChild(downloadLink);
+        setShowGenerateModal(false);
       });
     } else {
       window.open("http://localhost:8080/spring-hibernate-jpa/file/export-csv");
+      setShowGenerateModal(false);
     }
   };
 
